@@ -1,5 +1,10 @@
 package org.zerock.sample;
 
-public class Chef {
+import org.springframework.stereotype.Component;
+import lombok.Data;
 
+@Component
+@Data
+public class Chef {
+	
 }
