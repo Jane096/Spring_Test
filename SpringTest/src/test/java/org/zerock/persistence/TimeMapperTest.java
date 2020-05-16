@@ -16,6 +16,7 @@ import lombok.extern.log4j.Log4j;
 public class TimeMapperTest {
 	
 	//TimeMapper class의 정상동작 여부 테스트 코드-> 정상동작 한다면 스프링 객체가 존재한다는 뜻
+	//log4j.properties에 log4jdbc.drivers=org.oracledb.jdbc.Driver를 넣어줘야 동작함...(?)
 	
 	@Setter(onMethod_ = @Autowired)
 	private TimeMapper timeMapper;

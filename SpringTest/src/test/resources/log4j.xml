@@ -31,7 +31,24 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
-
+	
+	<!--로그메세지 조절하는 방법-->
+	<logger name="jdbc.audit">
+		<level value="warn"/>
+	</logger>
+	
+	<logger name="jdbc.resultset">
+		<level value="warn"/>
+	</logger>
+	
+	<logger name="jdbc.connection">
+		<level value="warn"/>
+	</logger>
+	
+	<logger name="jdbc.sqlonly">
+		<level value="debug"/>
+	</logger>
+	
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
