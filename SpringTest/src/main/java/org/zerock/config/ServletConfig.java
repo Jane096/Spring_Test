@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan(basePackages = {"org.zerock.controller"})
+@ComponentScan(basePackages = {"org.zerock.controller", "org.zerock.exception"})
 public class ServletConfig implements WebMvcConfigurer{
 	
 	//기존 servlet-context.xml 내용 작성하기
@@ -22,7 +22,7 @@ public class ServletConfig implements WebMvcConfigurer{
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		InternalResourceViewResolver bean = new InternalResourceViewResolver();
 			bean.setViewClass(JstlView.class);
-			bean.setPrefix("/WEB-INF/views/");
+			bean.setPrefix("/WEB-INF/views/sample/");
 			bean.setSuffix(".jsp");
 			registry.viewResolver(bean);
 	}
