@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.zerock.domain.SampleDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,5 +21,12 @@ public class SampleController {
 	@GetMapping("/basicOnlyGet")
 	public void basicGet2() {
 		log.info("basic get onlyGet...");
+	}
+	
+	@GetMapping("/SpringTest")
+	public String SpringTest(SampleDTO dto) {
+		log.info(""+dto);
+		
+		return "SpringTest";
 	}
 }
