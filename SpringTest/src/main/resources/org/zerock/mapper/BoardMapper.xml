@@ -3,9 +3,25 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.BoardMapper">
+
 	<select id="getList" resultType="org.zerock.domain.BoardVO">
 		<![CDATA[
 			select * from tbl_board where bno > 0
 		]]>
 	</select>
+	
+	<!--?값은 #{속성}으로 처리한다, 자동으로 pk값이 seq로 설정되고 있는 테이블-->
+	<insert id="insert">
+		insert into tbl_board (bno, title, content, writer)
+		values (seq_board.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<!--@SelectKey라는 mybatis annotation이용, pk값을 미리 sql통해 처리하고 특정이름으로 결과보관-->
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			select seq_board.nextval from dual
+		</selectKey>
+			insert into tbl_board (bno, title, content, writer)
+			values (#{bno}, #{title}, #{content}, #{writer})
+	</insert>
 </mapper>
