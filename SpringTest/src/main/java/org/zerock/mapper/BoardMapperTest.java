@@ -46,4 +46,10 @@ public class BoardMapperTest {
 		
 		log.info(board);
 	}
+	
+	@Test
+	public void testRead() {
+		BoardVO board = mapper.read(5L);//존재하는 게시물 번호로 하기(Long이라 L붙이
+		log.info(board);
+	}
 }
