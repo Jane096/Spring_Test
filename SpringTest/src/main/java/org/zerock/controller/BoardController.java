@@ -53,4 +53,14 @@ public class BoardController {
 		}
 		return "redirect:/board/list"; //수정 후 목록으로 이동
 	}
+	
+	@PostMapping("/remove")
+	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+		log.info("/remove called" + bno);
+		
+		if(service.remove(bno)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "redirect:/board/list";
+	}
 }

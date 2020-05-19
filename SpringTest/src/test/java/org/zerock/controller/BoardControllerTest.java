@@ -66,4 +66,13 @@ public class BoardControllerTest {
 		
 		//등록과 코드가 비슷함
 	}
+	
+	@Test
+	public void testRemove() throws Exception {
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
+				.param("bno", "14"))
+				.andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
+	}
 }
