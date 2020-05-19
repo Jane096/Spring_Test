@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan(basePackages = {"org.zerock.controller", "org.zerock.exception"})
+@ComponentScan(basePackages = { "org.zerock.controller"/* "org.zerock.exception" */})
 public class ServletConfig implements WebMvcConfigurer{
 	
 	//기존 servlet-context.xml 내용 작성하기
@@ -22,7 +22,7 @@ public class ServletConfig implements WebMvcConfigurer{
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		InternalResourceViewResolver bean = new InternalResourceViewResolver();
 			bean.setViewClass(JstlView.class);
-			bean.setPrefix("/WEB-INF/views/sample/");
+			bean.setPrefix("/WEB-INF/views/");
 			bean.setSuffix(".jsp");
 			registry.viewResolver(bean);
 	}
@@ -32,17 +32,17 @@ public class ServletConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 	
-	@Bean(name="multipartResolver")
-	public CommonsMultipartResolver getResolver() throws IOException {
-		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-		
-		//2MB 지정
-		resolver.setMaxUploadSizePerFile(1024 * 1024 * 2);
-		
-		//temp upload
-		resolver.setUploadTempDir(new FileSystemResource("C:\\workspaces\\upload\\temp"));
-		resolver.setDefaultEncoding("UTF-8");
-		
-		return resolver;
-	}
+	/*
+	 * @Bean(name="multipartResolver") public CommonsMultipartResolver getResolver()
+	 * throws IOException { CommonsMultipartResolver resolver = new
+	 * CommonsMultipartResolver();
+	 * 
+	 * //2MB 지정 resolver.setMaxUploadSizePerFile(1024 * 1024 * 2);
+	 * 
+	 * //temp upload resolver.setUploadTempDir(new
+	 * FileSystemResource("C:\\workspaces\\upload\\temp"));
+	 * resolver.setDefaultEncoding("UTF-8");
+	 * 
+	 * return resolver; }
+	 */
 }

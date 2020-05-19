@@ -12,30 +12,32 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+//@ComponentScan(basePackages = {"org.zerock.sample"})
 @Configuration
-/*@ComponentScan(basePackages = {"org.zerock.sample"})
-@MapperScan(basePackages = {"org.zerock.mapper"})*/
+@MapperScan(basePackages = {"org.zerock.mapper"})
 public class RootConfig {
-	
-	/*
-	 * @Bean public DataSource dataSource() { HikariConfig hikariConfig = new
-	 * HikariConfig();
-	 * //hikariConfig.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-	 * //hikariConfig.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
-	 * 
-	 * //log4jdbc-log4j properties 설정 추가로 변경된 오라클 드라이버
-	 * hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-	 * hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@localhost:1521:xe");
-	 * hikariConfig.setUsername("System"); hikariConfig.setPassword("admin1234");
-	 * 
-	 * HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-	 * 
-	 * return dataSource; }
-	 * 
-	 * @Bean public SqlSessionFactory sqlSessionFactory() throws Exception {
-	 * SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-	 * sqlSessionFactory.setDataSource(dataSource());
-	 * 
-	 * return (SqlSessionFactory) sqlSessionFactory.getObject(); }
-	 */
+
+	@Bean 
+	public DataSource dataSource() { HikariConfig hikariConfig = new HikariConfig();
+	  //hikariConfig.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+	  //hikariConfig.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
+	  
+	  //log4jdbc-log4j properties 설정 추가로 변경된 오라클 드라이버
+	  	hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+	  	hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@localhost:1521:xe");
+	  	hikariConfig.setUsername("System"); 
+	  	hikariConfig.setPassword("admin1234");
+	  
+	  	HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+	  
+	  	return dataSource; 
+	}
+	  
+	@Bean 
+	public SqlSessionFactory sqlSessionFactory() throws Exception {
+		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+		sqlSessionFactory.setDataSource(dataSource());
+	  
+		return (SqlSessionFactory) sqlSessionFactory.getObject();
+	} 
 }
