@@ -26,21 +26,31 @@ public class BoardController {
 		model.addAttribute("list", service.getList());
 	}
 	
-	@PostMapping("/register")
+	@PostMapping("/register") 
 	public String register(BoardVO board, RedirectAttributes rttr) {
-		log.info("/register called" + board);
-		service.register(board);
-		rttr.addFlashAttribute("result", board.getBno());
-		
-		return "redirect:/board/list"; 
-		//등록 작업이 끝난 후 다시 목록화면으로 이동, response.sendRedirect()와 같은 개념
+		  log.info("/register called" + board);
+		  service.register(board); rttr.addFlashAttribute("result", board.getBno());
+	  
+	return "redirect:/board/list"; 
+	  //등록 작업이 끝난 후 다시 목록화면으로 이동, response.sendRedirect()와 같은 개념
+	  
 	}
-	
+	 
 	@GetMapping("/get") //조회는 특별한 경우가 아니면 get으로 함
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		log.info("/get called");
 		model.addAttribute("board", service.get(bno));
 		
 		//화면쪽으로 해당 번호의 게시물을 전달하기 때문에 Model을 parameter로 지정
+	}
+	
+	@PostMapping("/modify")
+	public String modify(BoardVO board, RedirectAttributes rttr) {
+		log.info("modify: " + board);
+		
+		if(service.modify(board)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "redirect:/board/list"; //수정 후 목록으로 이동
 	}
 }

@@ -36,15 +36,15 @@ public class BoardControllerTest {
 				.andReturn().getModelAndView().getModelMap());
 	}
 	
-	@Test
-	public void testRegister() throws Exception{
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
-				.param("title", "테스트 새로운 제목")
-				.param("content", "테스트 새로운 내용")
-				.param("writer", "testUser5")).andReturn().getModelAndView().getViewName();
-		
-		log.info(resultPage);
-	}
+	
+	  @Test 
+	  public void testRegister() throws Exception{
+		  String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+				  .param("title", "테스트 새로운 제목") .param("content", "테스트 새로운 내용")
+				  .param("writer", "testUser5")).andReturn().getModelAndView().getViewName();
+	  
+	  log.info(resultPage); }
+	 
 	
 	@Test
 	public void testGet() throws Exception {
@@ -52,5 +52,18 @@ public class BoardControllerTest {
 				.get("/board/get")
 				.param("bno", "4"))
 				.andReturn().getModelAndView().getModelMap());
+	}
+	
+	@Test
+	public void testModify() throws Exception {
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+				.param("bno", "1")
+				.param("title", "수정 테스트 새로운 제목")
+				.param("content", "수정 테스트 새로운 내용")
+				.param("writer", "testUser6")).andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
+		
+		//등록과 코드가 비슷함
 	}
 }
