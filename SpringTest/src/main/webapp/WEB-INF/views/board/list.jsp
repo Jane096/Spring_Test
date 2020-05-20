@@ -4,7 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <title>View Lists</title>
+
 <%@ include file="../include/header.jsp" %>
+  <link href="/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="/resources/js/sb-admin-2.min.js"></script>
@@ -17,8 +19,13 @@
 		var result = "<c:out value='${result}'/>";
 
 		checkModal(result);
+		history.replaceState({}, null, null); //뒤로가기 문제 해결
 
-		function checkModal(result) {
+		function checkModal(result) { 
+			if(result == '' || history.state) {//등록된 후 이동이라면 모달창 보여줄 필요없음
+				return;
+			}
+			
 			if (result == '') {
 				return;
 			}
@@ -55,9 +62,10 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<div class="panel-heading">
+				<div class="panel-heading" style="padding-left:12px; padding-top:6px;">
 					Board List Page
-					<button id="regBtn" type="button" class="btn btn-xs pull-right">Register
+					<button id="regBtn" type="button" class="btn btn-xs float-right"
+					 style="padding-top:0px;">Register
 						New Board</button>
 				</div>
 			</div>
@@ -77,7 +85,8 @@
 						<c:forEach items="${list}" var="board">
 							<tr>
 								<td><c:out value="${board.bno }" /></td>
-								<td><c:out value="${board.title }" /></td>
+								<td><a href="/board/get?bno=<c:out value='${board.bno}'/>">
+										<c:out value="${board.title }" /></a></td>
 								<td><c:out value="${board.writer }" /></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"
 										value="${board.regdate}" /></td>
@@ -116,13 +125,5 @@
 
 	</div>
 	<!-- /.container-fluid -->
-      </div>
-      <!-- End of Main Content -->
-      
-     <%@ include file="../include/footer.jsp" %>   
-
-  <!-- Bootstrap core JavaScript-->
-</body>
-
-</html>
-
+    <!-- End of Main Content -->   
+<%@ include file="../include/footer.jsp" %>   

@@ -4,10 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <title>Register page</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+<%@ include file="../include/header.jsp" %>
   <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="/resources/js/sb-admin-2.min.js"></script>
@@ -21,8 +18,6 @@
 	width: 600px;
 }
 </style>
-
-<%@ include file="../include/header.jsp" %>
  	<div class="row" style="padding-left: 20px;">
  		<div class="col-lg-12">
  			<h1 class="page-header">Board Register</h1>
