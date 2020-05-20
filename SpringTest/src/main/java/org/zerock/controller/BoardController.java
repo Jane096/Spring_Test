@@ -41,9 +41,9 @@ public class BoardController {
 		  
 	}
 	 
-	@GetMapping("/get") //조회는 특별한 경우가 아니면 get으로 함
+	@GetMapping({"/get", "/modify"}) //조회는 특별한 경우가 아니면 get으로 함
 	public void get(@RequestParam("bno") Long bno, Model model) {
-		log.info("/get called");
+		log.info("/get or /modify called");
 		model.addAttribute("board", service.get(bno));
 		
 		//화면쪽으로 해당 번호의 게시물을 전달하기 때문에 Model을 parameter로 지정
