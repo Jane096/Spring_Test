@@ -1,7 +1,9 @@
 package org.zerock.config;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletRegistration;
 
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer{
@@ -21,6 +23,15 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 	@Override
 	protected String[] getServletMappings() {
 		return new String[] {"/"};
+	}
+	
+	@Override
+	protected Filter[] getServletFilters() { //한글깨짐 문제 해결 
+		CharacterEncodingFilter characterEncoding = new CharacterEncodingFilter();
+		characterEncoding.setEncoding("UTF-8");
+		characterEncoding.setForceEncoding(true);
+		
+		return new Filter[] {characterEncoding};
 	}
 	
 	@Override

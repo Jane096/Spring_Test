@@ -35,6 +35,11 @@ public class BoardController {
 	  //등록 작업이 끝난 후 다시 목록화면으로 이동, response.sendRedirect()와 같은 개념
 	  
 	}
+	
+	@GetMapping("/register") //입력페이지 보여주기 용도 별도 처리x
+	public void register() {
+		  
+	}
 	 
 	@GetMapping("/get") //조회는 특별한 경우가 아니면 get으로 함
 	public void get(@RequestParam("bno") Long bno, Model model) {
