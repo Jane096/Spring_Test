@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>header</title>
 </head>
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
 <body>
 	<!-- Page Wrapper -->
   <div id="wrapper">

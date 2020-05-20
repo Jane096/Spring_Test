@@ -6,6 +6,21 @@
 <meta charset="UTF-8">
 <title>footer</title>
 </head>
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+
+<script type="text/javascript">
+//반응형 웹사이트 메뉴 펼쳐지는 것 방지
+	$(document).ready(function() {
+		$('#dataTables-example').DataTable({
+			reponsive: true
+		});
+		$(".sidebar-nav")
+		.attr("class", "sidebar-nav navbar-collapse collapse")
+		.attr("aria-expanded", 'false')
+		.attr("style", "height:1px");
+	});
+</script>
+
 <body>
 	 <!-- Footer -->
       <footer class="sticky-footer bg-white">
