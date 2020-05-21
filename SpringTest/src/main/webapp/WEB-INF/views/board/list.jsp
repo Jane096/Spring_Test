@@ -39,7 +39,7 @@
 			self.close();
 		}
 
-		$("#regBtn").on("click", function() {
+		$("#regBtn").on("click", function(e) {
 			self.location = "/board/register";
 		});
 	});
@@ -108,7 +108,7 @@
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<div class="modal-body"></div>
+								<div class="modal-body">처리가 완료되었습니다!</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal" id="close">Close</button>

@@ -32,11 +32,9 @@
 			var operation = $(this).data("oper");
 			console.log(operation);
 
-			if (operation == "remove") {
-				formobj.attr("action", "/board/remove");
-			} else if (operation == 'list') {
-				self.location = "/board/list";
-				return;
+			if (operation == 'list') {
+				formobj.attr("action", "/board/list").attr("method", "get");
+				formobj.empty();
 			}
 			formobj.submit();
 		});
@@ -112,8 +110,6 @@
 
 				<button class="btn btn-sm btn-primary" type="submit"
 					data-oper="modify">Modify</button>
-				<button type="submit" data-oper="remove"
-					class="btn btn-sm btn-primary">Remove</button>
 				<button type="submit" data-oper="list"
 					class="btn btn-sm btn-primary">List</button>
 			</div>

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
@@ -59,7 +60,7 @@ public class BoardController {
 		return "redirect:/board/list"; //수정 후 목록으로 이동
 	}
 	
-	@PostMapping("/remove")
+	@RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		log.info("/remove called" + bno);
 		
