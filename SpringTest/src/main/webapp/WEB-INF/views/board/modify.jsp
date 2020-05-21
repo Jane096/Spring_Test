@@ -98,7 +98,7 @@
 					</div>
 					<label for="updatedate"
 						style="margin-right: 5pt; font-size: 14pt; outline: none;">Latest
-						date: </label>
+						Update: </label>
 					<div class="col-sm-0">
 						<input id="updatedate" name="updatedate"
 							style="line-height: 10.5px; outline: none;"

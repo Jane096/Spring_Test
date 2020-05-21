@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan(basePackages = { "org.zerock.controller"/* "org.zerock.exception" */})
+@ComponentScan(basePackages = { "org.zerock.controller", "org.zerock.exception"})
 public class ServletConfig implements WebMvcConfigurer{
 	
 	//기존 servlet-context.xml 내용 작성하기

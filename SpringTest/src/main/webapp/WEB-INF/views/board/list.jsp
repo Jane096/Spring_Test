@@ -35,10 +35,6 @@
 			$("#exampleModal").modal("show");
 		}
 		
-		$('#close').on("click"), function(){
-			self.close();
-		}
-
 		$("#regBtn").on("click", function(e) {
 			self.location = "/board/register";
 		});
@@ -111,9 +107,7 @@
 								<div class="modal-body">처리가 완료되었습니다!</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal" id="close">Close</button>
-									<button type="button" class="btn btn-primary">Save
-										changes</button>
+										data-dismiss="modal" id="close">confirm</button>
 								</div>
 							</div>
 						</div>
