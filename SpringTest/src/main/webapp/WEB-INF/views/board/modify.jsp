@@ -26,7 +26,7 @@
 	$(document).ready(function() {
 		var formobj = $("form");
 
-		$('button').on("click", function(e) {
+		$('#golist').on("click", function(e) {
 			e.preventDefault();
 
 			var operation = $(this).data("oper");
@@ -37,6 +37,19 @@
 				formobj.empty();
 			}
 			formobj.submit();
+		});
+		
+		$("#done").click(function(e){
+			if($("#title").val() == "") {
+				alert("제목을 채워주세요");
+				$("#title").focus();
+				return false;
+				
+			}else if($("#textarea").val() == "") {
+				alert("내용을 입력하세요");
+				$("#textarea").focus();
+				return false;	
+			}
 		});
 	});
 </script>
@@ -71,7 +84,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
-					<label>Title</label> <input id="input" class="form-control"
+					<label>Title</label> <input id="title" class="form-control"
 						name='title' placeholder="${board.title}"
 						onfocus="this.placeholder=''"
 						onblur="this.placeholder='${board.title}'">
@@ -108,9 +121,9 @@
 					</div>
 				</div>
 
-				<button class="btn btn-sm btn-primary" type="submit"
+				<button id="done" class="btn btn-sm btn-primary" type="submit"
 					data-oper="modify">Modify</button>
-				<button type="submit" data-oper="list"
+				<button id="golist" type="submit" data-oper="list"
 					class="btn btn-sm btn-primary">List</button>
 			</div>
 		</div>
