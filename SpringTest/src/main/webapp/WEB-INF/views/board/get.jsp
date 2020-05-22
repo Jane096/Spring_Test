@@ -36,42 +36,47 @@
 }
 </style>
 
-<%@ include file="../include/header.jsp"%>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="myModalLabel">Add Comment</h5>
+        <input type="submit" class="close" data-dismiss="modal" aria-label="Close" value="close">
           <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
-        <form>
           <div class="form-group">
             <label for="reply" class="col-form-label">Reply</label>
             <input type="text" class="form-control" id="reply" name="reply">
           </div>
           <div class="form-group">
             <label for="replyer" class="col-form-label">Replyer</label>
-            <textarea class="form-control" id="replyer" name="replyer"></textarea>
+            <input type="text" class="form-control" id="replyer" name="replyer">
           </div>
           <div class="form-group">
             <label for="replyDate" class="col-form-label">ReplyDate</label>
-            <textarea class="form-control" id="replyeDate" name="replyeDate"></textarea>
+            <input type="text" class="form-control" id="replyDate" name="replyDate">
           </div>
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="modalModBtn" class="btn btn-secondary" data-dismiss="modal">Modify</button>
-        <button type="button" id="modalRemoveBtn" class="btn btn-primary">Remove</button>
-		<button type="button" id="modalRegisterBtn" class="btn btn-primary">Add</button>
-		<button type="button" id="modalCloseBtn" class="btn btn-primary">close</button>
+        <input type="submit" id="modalModBtn" class="btn btn-secondary" data-dismiss="modal" value="Modify">
+        <input type="submit" id="modalRemoveBtn" class="btn btn-primary" value="Remove">
+		<input type="submit" id="modalRegisterBtn" class="btn btn-primary" value="Add">
+		<input type="submit" id="modalCloseBtn" class="btn btn-primary" value="Close">
       </div>
     </div>
   </div>
 </div>
-
+<%@ include file="../include/header.jsp"%>
+<link href="/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/resources/js/sb-admin-2.min.js"></script>
+  <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="/resources/js/demo/datatables-demo.js"></script>
+  
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
 $(document).ready(function(){
@@ -101,23 +106,25 @@ $(document).ready(function(){
 	}//end showlist
 	
 	var modal = $(".modal");
-	var modalInputReply = modal.find("input[name='reply']");
-	var modalInputReplyer = modal.find("input[name='replyer']");
-	var modalInputReplyDate = modal.find("input[name='replyDate']");
+	var modalInputReply = $(".modal").find("input[name='reply']");
+	var modalInputReplyer = $(".modal").find("input[name='replyer']");
+	var modalInputReplyDate = $(".modal").find("input[name='replyDate']");
 	
 	var modalModBtn = $("#modalModBtn");
 	var modalRemoveBtn = $("#modalRemoveBtn");
-	var modalRegisterBtn = S("#modalRegisterBtn");
+	var modalRegisterBtn = $("#modalRegisterBtn");
 	
 	$("#addReplyBtn").on("click", function(e){
-		modal.find("input").val("");
-		modalInputReplyDate.closest("div").hide();
-		modal.find("button[id != 'modalCloseBtn']").hide();
+		$(".modal").find("input").val("");
+		$(".modal").find("input[name='replyDate']").closest("div").hide();
+		$(".modal").find("input[id = 'modalModBtn']").hide();
+		$(".modal").find("input[id = 'modalRemoveBtn']").hide();
+		$(".modal").find("input[id = 'modalRegisterBtn']").hide();
 		
 		modalRegisterBtn.show();
-		
 		$(".modal").modal("show");
 	});
+	
 });
 	
 </script>
@@ -125,7 +132,7 @@ $(document).ready(function(){
 	$(document).ready(function() {
 		var formobj = $("form");
 		
-		$('button').on("click", function(e) {
+		$('#btn').on("click", function(e) {
 			e.preventDefault();
 
 			var operation = $(this).data("oper");
@@ -135,18 +142,18 @@ $(document).ready(function(){
 				var chk = confirm("정말 삭제하시겠습니까?");
 				
 				if(chk) {
-					location.href='/board/remove?bno='+parseInt(${board.bno}); 
+					location.href='/board/remove?bno='+parseInt(${board.bno})+":"+1; 
 					return;
 				}
 				
-			} else if (operation == 'list') {
+			} /* else if (operation == 'list') {
 				formobj.attr("action", "/board/list").attr("method", "get");
 				formobj.empty();
-			}
+			} */
 			formobj.submit();
 		});
 		
-		/* var operForm = $("#operForm");
+		var operForm = $("#operForm");
 		
 		$("button[data-oper='modify']").on("click", function(e){
 			operForm.attr("action", "/board/modify").submit();
@@ -155,7 +162,7 @@ $(document).ready(function(){
 		$("button[data-oper='list']").on("click", function(e){
 			operForm.attr("action", "/board/list")
 			operForm.submit();
-		}); */
+		});
 	});
 </script>
 
@@ -189,11 +196,11 @@ $(document).ready(function(){
 				</div>
 				<div style="margin-top: 20px; margin-bottom: 40pt;">
 					<button data-oper="modify" type="button"
-						class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
+						class="btn btn-sm btn-primary" id="btn">수정</button>
 					<button data-oper="remove" type="button"
-						class="btn btn-sm btn-primary" id="btnList">삭제</button>
-					<button data-oper="list" type="button"
-						class="btn btn-sm btn-primary" id="btnList">목록</button>
+						class="btn btn-sm btn-primary" id="btn" onclick="location.href='/board/remove?bno='+parseInt(${board.bno})">삭제</button>
+					<button id="golist" data-oper="list" type="button"
+						class="btn btn-sm btn-primary" id="btn" onclick="location.href=/board/list">목록</button>
 				</div>
 			</form>
 			
@@ -201,7 +208,7 @@ $(document).ready(function(){
 				<input type="hidden" id="bno" name="bno" value='<c:out value="${board.bno}"/>'>
 				<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
 				<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
-			</form>
+			</form> 
 		<div class="Default Panel" style="margin-bottom: 20pt;">
 	<div class="row bg-white rounded shadow-sm">
 		<div class="col-lg-12">
