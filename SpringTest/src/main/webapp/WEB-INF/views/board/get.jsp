@@ -37,6 +37,48 @@
 </style>
 
 <%@ include file="../include/header.jsp"%>
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+<script>
+	console.log("==========");
+	console.log("JS test");
+	
+	var bnoValue = '<c:out value="${board.bno}"/>';
+	
+	replyService.add(
+		{reply:"JS test", replyer:"testerJS", bno:bnoValue},
+		function(result) {
+			alert("result: " + result);
+		}
+	});
+	
+	replyService.getList({bno:bnoValue, page:1}, function(list){
+		for(var i=0, len=list.length||0; i<len; i++) {
+			console.log(list[i]);
+		}
+	});
+	
+	replyService.remove(25, function(count){
+		console.log(count);
+		
+		if(count === "success") {
+			alert("removed!");
+		}
+	}, function(err) {
+		alert("Error!");
+	});
+	
+	replyService.update({
+		rno:22,
+		bno : bnoValue,
+		reply : "Reply Modified!"
+	}, function(result){
+		alert("댓글이 수정되었습니다!");
+	});
+	
+	replyService.get(25, function(data){
+		console.log(data);
+	});
+</script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formobj = $("form");
