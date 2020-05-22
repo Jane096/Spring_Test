@@ -37,47 +37,89 @@
 </style>
 
 <%@ include file="../include/header.jsp"%>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="reply" class="col-form-label">Reply</label>
+            <input type="text" class="form-control" id="reply" name="reply">
+          </div>
+          <div class="form-group">
+            <label for="replyer" class="col-form-label">Replyer</label>
+            <textarea class="form-control" id="replyer" name="replyer"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="replyDate" class="col-form-label">ReplyDate</label>
+            <textarea class="form-control" id="replyeDate" name="replyeDate"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modalModBtn" class="btn btn-secondary" data-dismiss="modal">Modify</button>
+        <button type="button" id="modalRemoveBtn" class="btn btn-primary">Remove</button>
+		<button type="button" id="modalRegisterBtn" class="btn btn-primary">Add</button>
+		<button type="button" id="modalCloseBtn" class="btn btn-primary">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
-	console.log("==========");
-	console.log("JS test");
+$(document).ready(function(){
 	
 	var bnoValue = '<c:out value="${board.bno}"/>';
+	var replyUL = $(".chat");
 	
-	replyService.add(
-		{reply:"JS test", replyer:"testerJS", bno:bnoValue},
-		function(result) {
-			alert("result: " + result);
-		}
-	});
+	showList(1);
 	
-	replyService.getList({bno:bnoValue, page:1}, function(list){
-		for(var i=0, len=list.length||0; i<len; i++) {
-			console.log(list[i]);
-		}
-	});
-	
-	replyService.remove(25, function(count){
-		console.log(count);
+	function showList(page) {
 		
-		if(count === "success") {
-			alert("removed!");
-		}
-	}, function(err) {
-		alert("Error!");
-	});
+		replyService.getList({bno:bnoValue, page:page||1}, function(list){
+			var str="";
+			
+			if(list == null || list.length == 0) {
+				replyUL.html("");
+				return;
+			}
+			for(var i=0, len = list.length || 0; i<len; i++) {
+				str += "<li data-rno='"+list[i].rno+"'>";
+				str += "<div><div class='header'  style='padding-bottom:10px;'><strong class='primary-font' style='padding-right: 200px;'>"+list[i].replyer+"</strong>";
+				str += "<small>"+replyService.displayTime(list[i].replyDate)+"</small>"
+				str += "<p>"+list[i].reply+"</p></div></li>";
+			}
+			replyUL.html(str);
+		});
+	}//end showlist
 	
-	replyService.update({
-		rno:22,
-		bno : bnoValue,
-		reply : "Reply Modified!"
-	}, function(result){
-		alert("댓글이 수정되었습니다!");
-	});
+	var modal = $(".modal");
+	var modalInputReply = modal.find("input[name='reply']");
+	var modalInputReplyer = modal.find("input[name='replyer']");
+	var modalInputReplyDate = modal.find("input[name='replyDate']");
 	
-	replyService.get(25, function(data){
-		console.log(data);
+	var modalModBtn = $("#modalModBtn");
+	var modalRemoveBtn = $("#modalRemoveBtn");
+	var modalRegisterBtn = S("#modalRegisterBtn");
+	
+	$("#addReplyBtn").on("click", function(e){
+		modal.find("input").val("");
+		modalInputReplyDate.closest("div").hide();
+		modal.find("button[id != 'modalCloseBtn']").hide();
+		
+		modalRegisterBtn.show();
+		
+		$(".modal").modal("show");
 	});
+});
+	
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -145,7 +187,7 @@
 						<c:out value="${board.content}" />
 					</div>
 				</div>
-				<div style="margin-top: 20px">
+				<div style="margin-top: 20px; margin-bottom: 40pt;">
 					<button data-oper="modify" type="button"
 						class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
 					<button data-oper="remove" type="button"
@@ -160,8 +202,35 @@
 				<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
 				<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
 			</form>
+		<div class="Default Panel" style="margin-bottom: 20pt;">
+	<div class="row bg-white rounded shadow-sm">
+		<div class="col-lg-12">
+			<div class="">
+				<div class="panel-heading" style="margin-bottom: 20px;">
+					<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-bottom:15px; padding-top:15px;"></i><span style="font-size: 15pt;">Reply</span>
+					<button id='addReplyBtn' class="btn btn-primary btn-xs float-right">
+					Add Comment</button>
+				</div>
+				
+				<div class="panel-body" style="border-bottom: thin dotted;">
+					<ul class="chat" style="padding-left: 0">
+						<li data-rno="12" style="list-style:none;">
+							<div>
+								<div class="header" style="padding-bottom:10px;">
+									<strong class="primary-font" style="padding-right: 200px;"></strong>
+									<small></small>
+								</div>
+								<p></p>			
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		
+	</div>
+	</div>
+		</div>		
 	</article>
-
-	<%@ include file="../include/footer.jsp"%>
+	
+	
+<%@ include file="../include/footer.jsp"%>
