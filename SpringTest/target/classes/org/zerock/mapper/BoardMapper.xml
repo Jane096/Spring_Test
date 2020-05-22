@@ -13,7 +13,7 @@
 	<!--?값은 #{속성}으로 처리한다, 자동으로 pk값이 seq로 설정되고 있는 테이블-->
 	<insert id="insert">
 		insert into tbl_board (bno, title, content, writer)
-		values (seq_board.nextval, #{title}, #{content}, #{writer})
+		values ((select nvl(MAX(bno+1), 1) from tbl_board), #{title}, #{content}, #{writer})
 	</insert>
 	
 	<!--@SelectKey라는 mybatis annotation이용, pk값을 미리 sql통해 처리하고 특정이름으로 결과보관-->

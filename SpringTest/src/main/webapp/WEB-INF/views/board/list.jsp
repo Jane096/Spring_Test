@@ -60,9 +60,9 @@
 			<div class="card-header py-3">
 				<div class="panel-heading" style="padding-left:12px; padding-top:6px;">
 					Board List Page
-					<button id="regBtn" type="button" class="btn btn-xs float-right"
-					 style="padding-top:0px;">Register
-						New Board</button>
+					<button id="regBtn" type="button" class="btn btn-xs float-right">Register New Board</button>
+					<button id="deleteall" type="button" class="btn btn-xs float-right"
+					 style="padding-top:6px;">Delete All</button>
 				</div>
 			</div>
 			<div class="card-body">

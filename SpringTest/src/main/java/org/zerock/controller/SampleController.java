@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -127,5 +128,12 @@ public class SampleController {
 			log.info("size: " + file.getSize());
 		});
 		
+	}
+	
+	@GetMapping(value="/getText", produces = "text/plain; charset=UTF-8")
+	public String getText() {
+		log.info("Mime type: "+MediaType.TEXT_PLAIN_VALUE);
+		
+		return "안녕하세요!";
 	}
 }
