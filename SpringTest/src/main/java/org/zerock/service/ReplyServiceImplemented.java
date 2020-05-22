@@ -21,31 +21,30 @@ public class ReplyServiceImplemented implements ReplyService{
 	@Override
 	public int register(ReplyVO vo) {
 		log.info("/register called");
-		return 0;
+		return mapper.insert(vo);
 	}
 
 	@Override
 	public ReplyVO get(Long rno) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("/get called");
+		return mapper.read(rno);
 	}
 
 	@Override
 	public int modify(ReplyVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		log.info("/modify called");
+		return mapper.update(vo);
 	}
 
 	@Override
 	public int remove(Long rno) {
-		// TODO Auto-generated method stub
-		return 0;
+		log.info("/remove called: " + rno);
+		return mapper.delete(rno);
 	}
 
 	@Override
 	public List<ReplyVO> getList(Criteria cri, Long bno) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("ReplyList of current Board "+bno);
+		return mapper.getListWithPaging(cri, bno);
 	}
-
 }
