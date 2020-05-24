@@ -39,11 +39,16 @@ public class ReplyMapperTest {
 	 * replies = mapper.getListWithPaging(cri, bnoArr[0]); replies.forEach(reply ->
 	 * log.info(reply)); }
 	 */
+	/*
+	 * @Test public void testRead() { Long targetRno = 27L;
+	 * 
+	 * ReplyVO vo = mapper.read(targetRno); log.info(vo); }
+	 */
+	
 	@Test
-	public void testRead() {
-		Long targetRno = 27L;
-		
-		ReplyVO vo = mapper.read(targetRno);
-		log.info(vo);
+	public void testList2() {
+		Criteria cri = new Criteria(1, 10);
+		List<ReplyVO> replies = mapper.getListWithPaging(cri, 15L);
+		replies.forEach(reply -> log.info(reply));
 	}
 }

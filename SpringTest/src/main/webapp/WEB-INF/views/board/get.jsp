@@ -88,6 +88,8 @@ $(document).ready(function(){
 	
 	function showList(page) {
 		
+		console.log()
+		
 		replyService.getList({bno:bnoValue, page:page||1}, function(list){
 			var str="";
 			
