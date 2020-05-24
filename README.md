@@ -12,8 +12,8 @@ Spring framework의 학습을 위해 제작 중인 게시판 CRUD 웹사이트 1
 - 2020/05/25 ~            : 첨부파일 기능 추가, Spring web security를 이용한 로그인/로그아웃 처리 구현 예정
 
 ### 프로젝트 활용기술
-- Front-End : HTML5, CSS3, Bootstrap 4
-- Back-End : Spring(STS), Oracle Database 11g, Mybatis, Apache Tomcat 9, JSP, REST API
+- Front-End : HTML5, CSS3, Javascript, jQuery, Bootstrap 4
+- Back-End : Spring(STS), Java 8, Oracle Database 11g, Mybatis, Apache Tomcat 9, JSP, REST API
 - IDE : Eclipse IDE, SQL Developer
 - Others: Git, Github, SourceTree
 
