@@ -34,10 +34,16 @@ public class ReplyMapperTest {
 	 * 
 	 * mapper.insert(vo); }); }
 	 */
+	/*
+	 * @Test public void testList() { Criteria cri = new Criteria(); List<ReplyVO>
+	 * replies = mapper.getListWithPaging(cri, bnoArr[0]); replies.forEach(reply ->
+	 * log.info(reply)); }
+	 */
 	@Test
-	public void testList() {
-		Criteria cri = new Criteria();
-		List<ReplyVO> replies = mapper.getListWithPaging(cri, bnoArr[0]);
-		replies.forEach(reply -> log.info(reply));
+	public void testRead() {
+		Long targetRno = 27L;
+		
+		ReplyVO vo = mapper.read(targetRno);
+		log.info(vo);
 	}
 }

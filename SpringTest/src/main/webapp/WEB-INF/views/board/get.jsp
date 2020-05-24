@@ -60,10 +60,10 @@
           </div>
       </div>
       <div class="modal-footer">
-        <input type="submit" id="modalModBtn" class="btn btn-secondary" data-dismiss="modal" value="Modify">
-        <input type="submit" id="modalRemoveBtn" class="btn btn-primary" value="Remove">
-		<input type="submit" id="modalRegisterBtn" class="btn btn-primary" value="Add">
-		<input type="submit" id="modalCloseBtn" class="btn btn-primary" value="Close">
+        <button type="button" id="modalModBtn" class="btn btn-secondary" data-dismiss="modal" value="Modify">Modify</button>
+        <button type="button" id="modalRemoveBtn" class="btn btn-primary" value="Remove">Remove</button>
+		<button type="button" id="modalRegisterBtn" class="btn btn-primary" value="Add">Add</button>
+		<button type="button" id="modalCloseBtn" class="btn btn-primary" value="Close">Close</button>
       </div>
     </div>
   </div>
@@ -96,7 +96,7 @@ $(document).ready(function(){
 				return;
 			}
 			for(var i=0, len = list.length || 0; i<len; i++) {
-				str += "<li data-rno='"+list[i].rno+"'>";
+				str += "<li data-rno='"+list[i].rno+"' style='list-style:none;'>";
 				str += "<div><div class='header'  style='padding-bottom:10px;'><strong class='primary-font' style='padding-right: 200px;'>"+list[i].replyer+"</strong>";
 				str += "<small>"+replyService.displayTime(list[i].replyDate)+"</small>"
 				str += "<p>"+list[i].reply+"</p></div></li>";
@@ -117,14 +117,46 @@ $(document).ready(function(){
 	$("#addReplyBtn").on("click", function(e){
 		$(".modal").find("input").val("");
 		$(".modal").find("input[name='replyDate']").closest("div").hide();
-		$(".modal").find("input[id = 'modalModBtn']").hide();
-		$(".modal").find("input[id = 'modalRemoveBtn']").hide();
-		$(".modal").find("input[id = 'modalRegisterBtn']").hide();
+		$(".modal").find("button[id = 'modalModBtn']").hide();
+		$(".modal").find("button[id = 'modalRemoveBtn']").hide();
+		$(".modal").find("button[id = 'modalRegisterBtn']").hide();
 		
 		modalRegisterBtn.show();
-		$(".modal").modal("show");
+		$("#myModal").modal("show");
 	});
 	
+	modalRegisterBtn.on("click", function(e){ //새로운 댓글 추가 처리
+		var reply = {
+				reply : modalInputReply.val(),
+				replyer : modalInputReplyer.val(),
+				bno : bnoValue
+		};
+		replyService.add(reply, function(result){
+			alert(result);
+			modal.find("input").val("");
+			modal.modal("hide");
+			
+			showList(1);
+		});
+	});
+	$('.chat').on("click", "li", function(e){
+		
+		var rno = $(this).data("rno");
+		console.log(rno);
+		
+		replyService.get(rno, function(reply){
+			modalInputReply.val(reply.reply);
+			modalInputReplyer.val(reply.replyer);
+			modalInputReplyDate.val(replyService.displayTime(reply.replyDate)).attr("readonly", "readonly");
+			modal.data("rno", reply.rno);
+			
+			modal.find("button[id != 'modalCloseBtn']").hide();
+			modalModBtn.show();
+			modalRemoveBtn.show();
+			
+			$("#myModal").modal("show");
+		});
+	});
 });
 	
 </script>
@@ -215,13 +247,13 @@ $(document).ready(function(){
 			<div class="">
 				<div class="panel-heading" style="margin-bottom: 20px;">
 					<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-bottom:15px; padding-top:15px;"></i><span style="font-size: 15pt;">Reply</span>
-					<button id='addReplyBtn' class="btn btn-primary btn-xs float-right">
+					<button id='addReplyBtn' class="btn btn-primary btn-xs float-right" style="margin-top:15px;">
 					Add Comment</button>
 				</div>
 				
 				<div class="panel-body" style="border-bottom: thin dotted;">
 					<ul class="chat" style="padding-left: 0">
-						<li data-rno="12" style="list-style:none;">
+						<li data-rno="" style="list-style:none;">
 							<div>
 								<div class="header" style="padding-bottom:10px;">
 									<strong class="primary-font" style="padding-right: 200px;"></strong>
