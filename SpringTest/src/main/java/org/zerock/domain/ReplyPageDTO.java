@@ -10,7 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class ReplyPageDTO {
-	private int replyCnt;
-	private List<ReplyVO> list;
+	//private int replyCnt;
+	//private List<ReplyVO> list;
 	
 }

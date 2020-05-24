@@ -29,7 +29,7 @@ var replyService = (function(){
 		$.getJSON("/replies/pages/"+bno+"/"+page+".json",
 				function(data){
 					if(callback) {
-						callback(data.replyCnt, data.list); //댓글 숫자와 목록을 가져옴
+						callback(data); //댓글 숫자와 목록을 가져옴
 					}
 				}).fail(function(xhr, status, err){
 			if(error) {

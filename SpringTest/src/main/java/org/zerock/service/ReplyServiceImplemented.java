@@ -49,10 +49,11 @@ public class ReplyServiceImplemented implements ReplyService{
 		return mapper.getListWithPaging(cri, bno);
 	}
 
-	@Override
-	public ReplyPageDTO getListPage(Criteria cri, Long bno) {
-		
-		return new ReplyPageDTO(mapper.getCountByBno(bno), mapper.getListWithPaging(cri, bno));
-	}
+	/*
+	 * @Override public ReplyPageDTO getListPage(Criteria cri, Long bno) {
+	 * 
+	 * return new ReplyPageDTO(mapper.getCountByBno(bno),
+	 * mapper.getListWithPaging(cri, bno)); }
+	 */
 
 }

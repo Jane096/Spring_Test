@@ -42,8 +42,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="myModalLabel">Add Comment</h5>
-        <input type="submit" class="close" data-dismiss="modal" aria-label="Close" value="close">
-          <span aria-hidden="true">&times;</span>
+<!--         <input type="submit" class="close" data-dismiss="modal" aria-label="Close" value="close">
+           <span aria-hidden="true">&times;</span> -->
       </div>
       <div class="modal-body">
           <div class="form-group">
@@ -63,7 +63,7 @@
         <button type="button" id="modalModBtn" class="btn btn-secondary" data-dismiss="modal" value="Modify">Modify</button>
         <button type="button" id="modalRemoveBtn" class="btn btn-primary" value="Remove">Remove</button>
 		<button type="button" id="modalRegisterBtn" class="btn btn-primary" value="Add">Add</button>
-		<button type="button" id="modalCloseBtn" class="btn btn-primary" value="Close">Close</button>
+		<button type="button" id="modalCloseBtn" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
       </div>
     </div>
   </div>
@@ -83,6 +83,7 @@ $(document).ready(function(){
 	
 	var bnoValue = '<c:out value="${board.bno}"/>';
 	var replyUL = $(".chat");
+	//var pageNum = 1;
 	
 	showList(1);
 	
@@ -90,8 +91,8 @@ $(document).ready(function(){
 		
 		console.log("showList: " + page);
 		
-		replyService.getList({bno:bnoValue, page:page||1}, function(replyCnt, list){
-			console.log("replyCnt: " + replyCnt);
+		replyService.getList({bno:bnoValue, page:page||1}, function(list){
+			//console.log("replyCnt: " + replyCnt);
 			console.log("list: " + list);
 			console.log(list);
 			
@@ -114,11 +115,12 @@ $(document).ready(function(){
 				str += "<p>"+list[i].reply+"</p></div></li>";
 			}
 			replyUL.html(str);
+			//showReplyPage(replyCnt);
 		});
 	}//end showlist
 	
-	 var pageNum = 1;
-	    var replyPageFooter = $(".panel-footer");
+	/* var pageNum = 1;
+		var replyPageFooter = $(".panel-footer_bar");
 	    
 	    function showReplyPage(replyCnt){
 	      
@@ -136,16 +138,16 @@ $(document).ready(function(){
 	        next = true;
 	      }
 	      
-	      var str = "<ul class='pagination pull-right'>";
+	      var str="";
+	      str = "<div class='dataTables_paginate paging_simple_numbers' id='dataTable_paginate";
+	      str += "<ul class='pagination float-right'>";
 	      
 	      if(prev){
-	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+	        str+= "<li class='paginate_button page-item previous disabled' id='dataTable_previous'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
 	      }
 	      
-	      for(var i = startNum ; i <= endNum; i++){
-	        
+	      for(var i = startNum ; i <= endNum; i++){ 
 	        var active = pageNum == i? "active":"";
-	        
 	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
 	      }
 	      
@@ -154,12 +156,10 @@ $(document).ready(function(){
 	      }
 	      
 	      str += "</ul></div>";
-	      
 	      console.log(str);
-	      
 	      replyPageFooter.html(str);
 	    }
-	  
+ */ 
 	var modal = $(".modal");
 	var modalInputReply = $(".modal").find("input[name='reply']");
 	var modalInputReplyer = $(".modal").find("input[name='replyer']");
@@ -191,9 +191,10 @@ $(document).ready(function(){
 			modal.find("input").val("");
 			modal.modal("hide");
 			
-			showList(-1);
+			showList(1);
 		});
 	});
+	
 	$('.chat').on("click", "li", function(e){
 		
 		var rno = $(this).data("rno");
@@ -339,7 +340,7 @@ $(document).ready(function(){
 						</li>
 					</ul>
 				</div>
-				<div class="panel-footer">
+				<div class="panel-footer_bar">
 					
 				</div>
 			</div>
