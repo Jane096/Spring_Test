@@ -88,15 +88,25 @@ $(document).ready(function(){
 	
 	function showList(page) {
 		
-		console.log()
+		console.log("showList: " + page);
 		
-		replyService.getList({bno:bnoValue, page:page||1}, function(list){
+		replyService.getList({bno:bnoValue, page:page||1}, function(replyCnt, list){
+			console.log("replyCnt: " + replyCnt);
+			console.log("list: " + list);
+			console.log(list);
+			
+			if(page == -1) { // showList(-1)이 호출되면 우선 전체 댓글의 숫자를 파악, 이후에 다시 마지막페이지를 호출해서 이동하는 방식
+				pageNum = Math.ceil(replyCnt/10.0);
+				showList(pageNum);
+				return;
+			}
+			
 			var str="";
 			
 			if(list == null || list.length == 0) {
-				replyUL.html("");
 				return;
 			}
+			
 			for(var i=0, len = list.length || 0; i<len; i++) {
 				str += "<li data-rno='"+list[i].rno+"' style='list-style:none;'>";
 				str += "<div><div class='header'  style='padding-bottom:10px;'><strong class='primary-font' style='padding-right: 200px;'>"+list[i].replyer+"</strong>";
@@ -107,6 +117,49 @@ $(document).ready(function(){
 		});
 	}//end showlist
 	
+	 var pageNum = 1;
+	    var replyPageFooter = $(".panel-footer");
+	    
+	    function showReplyPage(replyCnt){
+	      
+	      var endNum = Math.ceil(pageNum / 10.0) * 10;  
+	      var startNum = endNum - 9; 
+	      
+	      var prev = startNum != 1;
+	      var next = false;
+	      
+	      if(endNum * 10 >= replyCnt){
+	        endNum = Math.ceil(replyCnt/10.0);
+	      }
+	      
+	      if(endNum * 10 < replyCnt){
+	        next = true;
+	      }
+	      
+	      var str = "<ul class='pagination pull-right'>";
+	      
+	      if(prev){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+	      }
+	      
+	      for(var i = startNum ; i <= endNum; i++){
+	        
+	        var active = pageNum == i? "active":"";
+	        
+	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+	      }
+	      
+	      if(next){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+	      }
+	      
+	      str += "</ul></div>";
+	      
+	      console.log(str);
+	      
+	      replyPageFooter.html(str);
+	    }
+	  
 	var modal = $(".modal");
 	var modalInputReply = $(".modal").find("input[name='reply']");
 	var modalInputReplyer = $(".modal").find("input[name='replyer']");
@@ -138,7 +191,7 @@ $(document).ready(function(){
 			modal.find("input").val("");
 			modal.modal("hide");
 			
-			showList(1);
+			showList(-1);
 		});
 	});
 	$('.chat').on("click", "li", function(e){
@@ -285,6 +338,9 @@ $(document).ready(function(){
 							</div>
 						</li>
 					</ul>
+				</div>
+				<div class="panel-footer">
+					
 				</div>
 			</div>
 		</div>
