@@ -3,10 +3,12 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.ReplyPageDTO;
 import org.zerock.domain.ReplyVO;
+import org.zerock.mapper.BoardMapper;
 import org.zerock.mapper.ReplyMapper;
 
 import lombok.Setter;
@@ -19,9 +21,14 @@ public class ReplyServiceImplemented implements ReplyService{
 	@Setter(onMethod_ = @Autowired)
 	private ReplyMapper mapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	private BoardMapper boardMapper;
+	
+	@Transactional //트랜잭션 처리
 	@Override
 	public int register(ReplyVO vo) {
 		log.info("/register called");
+		boardMapper.updateReplyCnt(vo.getBno(), 1);
 		return mapper.insert(vo);
 	}
 
@@ -37,9 +44,14 @@ public class ReplyServiceImplemented implements ReplyService{
 		return mapper.update(vo);
 	}
 
+	@Transactional
 	@Override
 	public int remove(Long rno) {
 		log.info("/remove called: " + rno);
+		
+		ReplyVO vo = mapper.read(rno); //해당 댓글의 게시물을 알아내는 과정이 필요함
+		boardMapper.updateReplyCnt(vo.getBno(), -1);
+		
 		return mapper.delete(rno);
 	}
 
