@@ -10,6 +10,8 @@
   <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="/resources/js/sb-admin-2.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" 
+  	integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
   <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="/resources/js/demo/datatables-demo.js"></script>
@@ -60,7 +62,7 @@
 			<div class="card-header py-3">
 				<div class="panel-heading" style="padding-left:12px; padding-top:6px;">
 					Board List Page
-					<button id="regBtn" type="button" class="btn btn-xs float-right">Register New Board</button>
+					<a id="regBtn" href="#" class="btn btn-xs float-right"><i class="fas fa-pencil"></i>Register New Board</a>
 					<button id="deleteall" type="button" class="btn btn-xs float-right"
 					 style="padding-top:6px;">Delete All</button>
 				</div>
@@ -83,9 +85,10 @@
 								<td><c:out value="${board.bno }" /></td>
 								<td><a style="color:black; outline:none;" href="/board/get?bno=<c:out value='${board.bno}'/>">
 										<c:out value="${board.title }" />
+										</a>
 										<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-left:20px; color:gray;"></i>
 										<b style="font-size: 15pt;padding-left:20px; color:gray;"><c:out value="${board.replyCnt}"/></b>
-										</a></td>
+										</td>
 								<td><c:out value="${board.writer }" /></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"
 										value="${board.regdate}" /></td>

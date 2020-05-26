@@ -322,7 +322,7 @@ $(document).ready(function(){
 		<div class="col-lg-12">
 			<div class="">
 				<div class="panel-heading" style="margin-bottom: 20px;">
-					<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-bottom:15px; padding-top:15px;"></i><span style="font-size: 15pt;">Reply</span>
+					<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-bottom:15px; padding-top:15px;"></i><span style="font-size: 15pt;">Comments</span>
 					<button id='addReplyBtn' class="btn btn-primary btn-xs float-right" style="margin-top:15px;">
 					Add Comment</button>
 				</div>
