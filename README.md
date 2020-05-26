@@ -17,6 +17,10 @@
 - IDE : Eclipse IDE, SQL Developer
 - Others: Git, Github, SourceTree
 
+
+### 화면 구성도
+- [pdf](SpringProjectImage.pdf) 이미지 파일로 간략하게 설명되어있으니 참고 부탁드립니다!
+
 ### 개선점
 - 상세 페이지 부분에서 삭제 확인 팝업창 처리 추가
 - 데이터베이스를 이용하여 자동 로그인 기능 추가
