@@ -1,7 +1,7 @@
 ## Spring기반 웹 게시판 
 
 ### 프로젝트 개요
-Spring framework의 학습을 위해 제작 중인 게시판 CRUD 웹사이트 1인 프로젝트 입니다
+ 신입 개발자의 기본 소양이며 웹 구현에 필수 요소인 게시판의 기능을 숙지함과 동시에 Spring framework의 학습을 위해 제작 중인 게시판 CRUD 웹사이트 1인 프로젝트 입니다
 
 ### 프로젝트 일정
 - 2020/05/13 ~ 2020/05/14 : Spring 환경설정 및 Oracle DB, Github-eclipse연동
