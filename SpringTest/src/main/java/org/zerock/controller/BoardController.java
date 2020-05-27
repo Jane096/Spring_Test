@@ -103,14 +103,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("/remove called" + bno);
 		
 		List<BoardAttachVO> attachList = service.getAttachList(bno);
 		
 		if(service.remove(bno)) {
 			deleteFiles(attachList);
-			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("result", "삭제되었습니다");
 		}
 		return "redirect:/board/list";
 	}

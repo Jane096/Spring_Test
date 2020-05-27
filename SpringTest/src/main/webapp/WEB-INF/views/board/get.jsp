@@ -69,14 +69,7 @@
   </div>
 </div>
 <%@ include file="../include/header.jsp"%>
-<link href="/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="/resources/js/sb-admin-2.min.js"></script>
-  <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="/resources/js/demo/datatables-demo.js"></script>
-  
+
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
 $(document).ready(function(){

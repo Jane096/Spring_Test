@@ -6,16 +6,7 @@
 <title>View Lists</title>
 
 <%@ include file="../include/header.jsp" %>
-  <link href="/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="/resources/js/sb-admin-2.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" 
-  	integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-  <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="/resources/js/demo/datatables-demo.js"></script>
- 
+  
 <script type="text/javascript">
 	$(document).ready(function() {
 		var result = "<c:out value='${result}'/>";
