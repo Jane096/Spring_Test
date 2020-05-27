@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.BoardAttachVO;
 import org.zerock.domain.BoardVO;
 import org.zerock.mapper.BoardAttachMapper;
 import org.zerock.mapper.BoardMapper;
@@ -68,4 +69,9 @@ public class BoardServiceImplemented implements BoardService{
 		return mapper.getList();
 	}
 
+	@Override
+	public List<BoardAttachVO> getAttachList(Long bno) {
+		log.info("Attach list w/ bno " + bno);
+		return attachMapper.findByBno(bno);
+	}
 }
