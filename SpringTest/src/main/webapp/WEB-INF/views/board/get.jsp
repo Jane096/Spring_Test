@@ -233,21 +233,21 @@ $(document).ready(function(){
 	$(document).ready(function() {
 		var formobj = $("form");
 		
-		$('#btn').on("click", function(e) {
-			e.preventDefault();
+		$('#removeOk').on("click", function(e) {
+			//e.preventDefault();
 
-			var operation = $(this).data("oper");
+			/* var operation = $(this).data("oper");
 			console.log(operation);
 			
-			if (operation == "remove") {
+			if (operation == "remove") { */
 				var chk = confirm("정말 삭제하시겠습니까?");
 				
 				if(chk) {
-					location.href='/board/remove?bno='+parseInt(${board.bno})+":"+1; 
+					"location.href='/board/remove?bno='"+parseInt(${board.bno}); 
 					return;
 				}
 				
-			} /* else if (operation == 'list') {
+			/* else if (operation == 'list') {
 				formobj.attr("action", "/board/list").attr("method", "get");
 				formobj.empty();
 			} */
@@ -365,11 +365,11 @@ $(document).ready(function(){
 				</div>
 				<div style="margin-top: 20px; margin-bottom: 40pt;">
 					<button data-oper="modify" type="button"
-						class="btn btn-sm btn-primary" id="btn">수정</button>
+						class="btn btn-sm btn-primary">수정</button>
 					<button data-oper="remove" type="button"
-						class="btn btn-sm btn-primary" id="btn" onclick="location.href='/board/remove?bno='+parseInt(${board.bno})">삭제</button>
+						class="btn btn-sm btn-primary" id="removeOK" onclick="location.href='/board/remove?bno='+parseInt(${board.bno})">삭제</button>
 					<button id="golist" data-oper="list" type="button"
-						class="btn btn-sm btn-primary" id="btn" onclick="location.href=/board/list">목록</button>
+						class="btn btn-sm btn-primary" onclick="location.href=/board/list">목록</button>
 				</div>
 			</form>
 			
