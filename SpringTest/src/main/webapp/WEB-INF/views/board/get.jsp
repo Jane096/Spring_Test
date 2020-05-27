@@ -391,8 +391,6 @@ $(document).ready(function(){
   </div>
 </div>
 
-
-
 <style>
 .uploadResult {
   width:100%;

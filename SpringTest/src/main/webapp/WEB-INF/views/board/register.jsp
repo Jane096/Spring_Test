@@ -161,7 +161,6 @@ $(document).ready(function() {
 	       });
 	    }); //$.ajax
 	});
-/* }); */
 </script>
  	<div class="row" style="padding-left: 20px;">
  		<div class="col-lg-12">

@@ -28,7 +28,7 @@ public class BoardServiceImplemented implements BoardService{
 	@Transactional
 	@Override
 	public void register(BoardVO board) {
-		log.info("register: " + board);
+		log.info("/register called: " + board);
 		mapper.insertSelectKey(board);
 		
 		if(board.getAttachList() == null || board.getAttachList().size() <= 0) {
@@ -43,35 +43,49 @@ public class BoardServiceImplemented implements BoardService{
 
 	@Override
 	public BoardVO get(Long bno) {
-		log.info("get called: " + bno);
+		log.info("/get called: " + bno);
 		
 		return mapper.read(bno);
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean modify(BoardVO board) {
-		log.info("modify called: " + board);
+		log.info("/modify called: " + board);
+		attachMapper.deleteAll(board.getBno());
 		
-		return mapper.update(board) == 1;
+		//board 글 업데이트 
+		boolean modifyResult = mapper.update(board) == 1;
+		
+		//첨부파일 업데이트 
+		if(modifyResult && board.getAttachList() != null && board.getAttachList().size() > 0) {
+			board.getAttachList().forEach(attach -> {
+				attach.setBno(board.getBno());
+				attachMapper.insert(attach);
+			});
+		}
+		return modifyResult;
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean remove(Long bno) {
-		log.info("remove called: " + bno);
+		log.info("/remove called: " + bno);
+		attachMapper.deleteAll(bno);
 		
 		return mapper.delete(bno) == 1;
 	}
 
 	@Override
 	public List<BoardVO> getList() {
-		log.info("getList called");
+		log.info("/getList called");
 		
 		return mapper.getList();
 	}
 
 	@Override
 	public List<BoardAttachVO> getAttachList(Long bno) {
-		log.info("Attach list w/ bno " + bno);
+		log.info("/getAttachList w/ bno called: " + bno);
 		return attachMapper.findByBno(bno);
 	}
 }

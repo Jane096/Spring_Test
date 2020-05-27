@@ -1,5 +1,8 @@
 package org.zerock.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -76,11 +79,37 @@ public class BoardController {
 		return "redirect:/board/list"; //수정 후 목록으로 이동
 	}
 	
+	private void deleteFiles(List<BoardAttachVO> attachList) {
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		
+		log.info("/deleteFiles() called");
+		log.info(attachList + " will removed");
+		
+		attachList.forEach(attach -> {
+			try {
+				Path file = Paths.get("C:\\attach\\" + attach.getUploadPath()+"\\s_" + attach.getUuid()+"_"+attach.getFileName());
+				Files.deleteIfExists(file);
+				
+				if(Files.probeContentType(file).startsWith("image")) {
+					Path thumbNail = Paths.get("C:\\attach\\" + attach.getUploadPath()+"\\s_" + attach.getUuid()+"_"+attach.getFileName());
+					Files.delete(thumbNail);
+				}
+			}catch(Exception e) {
+				log.error("cannot delete" + e.getMessage());
+			}
+		});
+	}
+	
 	@RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		log.info("/remove called" + bno);
 		
+		List<BoardAttachVO> attachList = service.getAttachList(bno);
+		
 		if(service.remove(bno)) {
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/board/list";

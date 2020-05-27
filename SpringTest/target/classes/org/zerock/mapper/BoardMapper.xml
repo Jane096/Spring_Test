@@ -46,4 +46,9 @@
 	<update id="updateReplyCnt">
 		update tbl_board set replycnt = replycnt + #{amount} where bno = #{bno}
 	</update>
+	
+	<delete id="deleteAll">
+		delete from tbl_attach where uuid = #{uuid}
+	</delete>
+	
 </mapper>
