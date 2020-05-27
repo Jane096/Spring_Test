@@ -17,89 +17,14 @@
 #textarea {
 	width: 600px;
 }
-
-.filebox input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
-}
-
-.filebox label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
-}
-
-/* named upload */
-.filebox .upload-name {
-    display: inline-block;
-    padding: .5em .75em;
-    font-size: inherit;
-    font-family: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #f5f5f5;
-  border: 1px solid #ebebeb;
-  border-bottom-color: #e2e2e2;
-  border-radius: .25em;
-  -webkit-appearance: none; /* 네이티브 외형 감추기 */
-  -moz-appearance: none;
-  appearance: none;
-}
-
-/* imaged preview */
-.filebox .upload-display {
-    margin-bottom: 5px;
-}
-
-@media(min-width: 768px) {
-    .filebox .upload-display {
-        display: inline-block;
-        margin-right: 5px;
-        margin-bottom: 0;
-    }
-}
-
-.filebox .upload-thumb-wrap {
-    display: inline-block;
-    width: 54px;
-    padding: 2px;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-}
-
-.filebox .upload-display img {
-    display: block;
-    max-width: 100%;
-    width: 100% \9;
-    height: auto;
-}
-
-.filebox.bs3-primary label {
-  color: #fff;
-  background-color: #337ab7;
-    border-color: #2e6da4;
-}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#submit").click(function(e){
+	var formObj = $("form[role='form']");
+	$("button[type='submit']").on("click", function(e){ 
+		//e.preventDefault();	
+		
 		if($("#title").val() == "") {
 			alert("제목을 채워주세요");
 			$("#title").focus();
@@ -114,32 +39,29 @@ $(document).ready(function() {
 			alert("작성자를 입력하세요");
 			$("#writer").focus();
 			return false;
-		}
+			
+		}else{  
+			    console.log("submit clicked");    
+			    var str = "";
+			    
+			    $(".uploadResult ul li").each(function(i, obj){	      
+			      var jobj = $(obj);
+			      
+			      console.dir(jobj);
+			      console.log("-------------------------");
+			      console.log(jobj.data("filename"));
+			            
+			      str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+			      str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+			      str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+			      str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+ jobj.data("type")+"'>";
+			      
+			    });
+			    
+			    console.log(str);
+			    $("form[role='form']").append(str).submit();
+		}		
 	});
-	
-	var formObj = $("form[role='form']");	  
-	  $("button[type='submit']").on("click", function(e){    
-	    e.preventDefault();	    
-	    console.log("submit clicked");    
-	    var str = "";
-	    
-	    $(".uploadResult ul li").each(function(i, obj){	      
-	      var jobj = $(obj);
-	      
-	      console.dir(jobj);
-	      console.log("-------------------------");
-	      console.log(jobj.data("filename"));
-	            
-	      str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
-	      str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-	      str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-	      str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+ jobj.data("type")+"'>";
-	      
-	    });
-	    
-	    console.log(str);	    
-	    formObj.append(str).submit();	    
-	  });
 	
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 	var maxSize = 7242880; //5MB
@@ -182,6 +104,8 @@ $(document).ready(function() {
 
 	      }
 	    }); //$.ajax
+	  });
+	  
 	    function showUploadResult(uploadResultArr){		    
 		    if(!uploadResultArr || uploadResultArr.length == 0){ return; }		    
 		    var uploadUL = $(".uploadResult ul");		    
@@ -213,7 +137,7 @@ $(document).ready(function() {
 					str +"</li>";
 				}
 		}); 
-		uploadUL.append(str);
+		    $(".uploadResult ul").append(str);
 	}
 	    $(".uploadResult").on("click", "button", function(e){
 		    
@@ -237,7 +161,7 @@ $(document).ready(function() {
 	       });
 	    }); //$.ajax
 	});
-});
+/* }); */
 </script>
  	<div class="row" style="padding-left: 20px;">
  		<div class="col-lg-12">
@@ -251,7 +175,7 @@ $(document).ready(function() {
  				
  				<div class="panel-heading"><h4>Write your content!</h4></div>
  				<div class="panel-body">
- 					<form role="form" action="/board/register" method="post">
+ 					<form role='form' action="/board/register" method="post">
  						<div class="form-group">
  							<label>Title</label>
  							<input id="title" class="form-control" name='title' >
@@ -275,7 +199,7 @@ $(document).ready(function() {
  	</div>
 
 <div class="form-group uploadDiv" style="margin-bottom:20px;">
-	<input style="margin-bottom:5px; margin-left:20px;" type="file" class="btn btn-sm default" id="ex_filename" name="uploadFile" multiple>
+	<input style="margin-bottom:5px; margin-left:20px;" type="file" class="btn btn-sm default" name="uploadFile" multiple>
 </div>
 <div class="uploadResult">
 	<ul></ul>

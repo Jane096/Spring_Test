@@ -32,13 +32,14 @@ public class BoardController {
 	@PostMapping("/register") 
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("==========================");
-		log.info("/register called" + board);
+		log.info("/register called " + board);
 		
 		if(board.getAttachList() != null) {
 			board.getAttachList().forEach(attach -> log.info(attach));
 		}
 		log.info("==========================");
-		  //service.register(board); rttr.addFlashAttribute("result", board.getBno());
+		service.register(board); 
+		rttr.addFlashAttribute("result", board.getBno());
 	  
 	return "redirect:/board/list"; 
 	  //등록 작업이 끝난 후 다시 목록화면으로 이동, response.sendRedirect()와 같은 개념
