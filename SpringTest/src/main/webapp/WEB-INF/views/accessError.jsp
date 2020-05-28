@@ -4,7 +4,7 @@
 
   <title>Your Board 404 Error</title>
 
-  <%@ include file="../include/header.jsp"%>
+  <%@ include file="./include/header.jsp"%>
   
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -22,4 +22,4 @@
       </div>
       <!-- End of Main Content -->
 
-<%@ include file="../include/footer.jsp"%>
+<%@ include file="./include/footer.jsp"%>
