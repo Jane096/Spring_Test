@@ -9,10 +9,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.zerock.security.CustomLoginSuccessHandler;
+import org.zerock.security.CustomUserDetailsService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -63,5 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean //passwordEncoder 지정, jdbc의 복잡한 구성을 사용하기 위해 미리 준비
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean //custom UserDeailService 설정 관련
+	public UserDetailsService customUserService() {
+		return new CustomUserDetailsService();
 	}
 }
