@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.zerock.security.CustomLoginSuccessHandler;
 
 import lombok.extern.log4j.Log4j;
 
@@ -22,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/sample/admin").access("hasRole('ROLE_ADMIN')")
 			.antMatchers("/sample/member").access("hasRole('ROLE_ADMIN')");
 		
-		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login");
+		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login")
+				.successHandler(loginSuccessHandler());
 	}
 	
 	@Override
@@ -34,10 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
-		return new Custom();
+		return new CustomLoginSuccessHandler();
 	}
-	
-	@Override
-	public void configure(HttpSecurity http) 
-	
 }
