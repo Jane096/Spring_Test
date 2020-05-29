@@ -199,21 +199,21 @@ $(document).ready(function() {
  		</div>
  	</div>
 
-<div class="form-group uploadDiv" style="margin-bottom:20px;">
+<!-- <div class="form-group uploadDiv" style="margin-bottom:20px;">
 	<input style="margin-bottom:5px; margin-left:20px;" type="file" class="btn btn-sm default" name="uploadFile" multiple>
 </div>
 <div class="uploadResult">
 	<ul></ul>
-</div>
-<!-- <div class="row" style="padding-left:40px;">
+</div> -->
+<div class="row" style="padding-left:20px; width: 650px;">
   <div class="col-lg-12" style="margin-bottom: 15pt;">
     <div class="bg-white rounded shadow-sm">
 
-      <div class="panel-heading" style="font-size:15pt; padding-left:20px; padding-top:15px; padding-bottom:15px;">Change your files</div>
-      /.panel-heading
+      <div class="panel-heading" style="font-size:15pt; padding-left:20px; padding-top:15px; padding-bottom:15px;">Add files</div>
+     
       <div class="panel-body">
       	<div class="form-group uploadDiv" style="margin-bottom:20px;">
-			<input style="margin-bottom:5px; margin-left:20px;" type="file" class="btn btn-sm default" name="uploadFile" multiple="multiple">
+			<input style="margin-bottom:25px; margin-left:20px;" type="file" class="btn btn-sm default" name="uploadFile" multiple="multiple">
 		</div>
         
         <div class='uploadResult'> 
@@ -221,11 +221,11 @@ $(document).ready(function() {
           </ul>
         </div>
       </div>
-       end panel-body
+       <!-- end panel-body -->
     </div>
-     end panel-body
+     <!-- end panel-body -->
   </div>
-  end panel
+  <!-- end panel -->
 </div>
-/.row -->
+<!-- /.row  -->
 <%@ include file="../include/footer.jsp"%>

@@ -457,7 +457,8 @@ $(document).ready(function(){
   <div class="col-lg-12" style="margin-bottom: 15pt;">
     <div class="bg-white rounded shadow-sm">
 
-      <div class="panel-heading" style="font-size:15pt; padding-left:20px; padding-top:15px; padding-bottom:15px;">Files</div>
+      <i class="far fa-file alt" style="font-size: 15pt; padding-left: 25px; padding-top:20px; padding-bottom:25px;"></i>
+      <span class="panel-heading" style="font-size:15pt; padding-left:10px;">Files</span>
       <!-- /.panel-heading -->
       <div class="panel-body">
         
