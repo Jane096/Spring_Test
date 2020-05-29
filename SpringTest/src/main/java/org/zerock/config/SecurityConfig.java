@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.zerock.security.CustomLoginSuccessHandler;
 import org.zerock.security.CustomUserDetailsService;
 
@@ -34,12 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/sample/admin").access("hasRole('ROLE_ADMIN')")
 			.antMatchers("/sample/member").access("hasRole('ROLE_ADMIN')");
 		
-		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login")
-				.successHandler(loginSuccessHandler()); //로그인처리
+		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login");
+				//.successHandler(loginSuccessHandler()); //로그인처리
 		
 		//로그아웃 처리, 로그인 시 생성된 쿠키를 확인하고 로그아웃 이후 쿠키값이 삭제되고 다른값으로 변경 되었는지 확인
 		http.logout().logoutUrl("/customLogout").invalidateHttpSession(true)
-				.deleteCookies("remember-me", "JSESSION_ID"); 
+				.deleteCookies("remember-me", "JSESSION_ID");
+		
+		http.rememberMe().key("zerock").tokenRepository(persistentTokenRepository())
+				.tokenValiditySeconds(604800);
 
 	}
 	
@@ -70,5 +75,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean //custom UserDeailService 설정 관련
 	public UserDetailsService customUserService() {
 		return new CustomUserDetailsService();
+	}
+	
+	@Bean //자동로그인 설정(persistentTokenRepository 타입을 이용함)
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+		repo.setDataSource(dataSource);
+		
+		return repo;
 	}
 }
