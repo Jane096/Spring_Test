@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +13,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Login Page</title>
-
+  <title>Login page</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -23,10 +24,13 @@
 
 </head>
 <script type="text/javascript">
+$(document).ready(function() {
 	$(".btn-success").on("click", function(e){
 		e.preventDefault();
 		$("form").submit();
 	});
+});
+
 </script>
 
 <body class="bg-gradient-primary">
@@ -42,21 +46,22 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
+              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
-                  <form class="user" role="form" method="post" action="/login">
+                  <form role="form" method="post" action="/login">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" name="username" aria-describedby="emailHelp" placeholder="user ID" autofocus>
+                      <input type="text" class="form-control form-control-user" name="username" aria-describedby="emailHelp" placeholder="userid" autofocus>
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="remember-me">
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
@@ -64,7 +69,7 @@
                       Login
                     </a>
                     <hr>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                   </form>
                   <hr>
                   <div class="text-center">
@@ -97,4 +102,3 @@
 
 </body>
 
-</html>

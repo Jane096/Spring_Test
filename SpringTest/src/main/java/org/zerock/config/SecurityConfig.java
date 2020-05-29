@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers("/sample/all").permitAll()
 			.antMatchers("/sample/admin").access("hasRole('ROLE_ADMIN')")
-			.antMatchers("/sample/member").access("hasRole('ROLE_ADMIN')");
+			.antMatchers("/sample/member").access("hasRole('ROLE_MEMBER')");
 		
 		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login");
 				//.successHandler(loginSuccessHandler()); //로그인처리
@@ -53,13 +53,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		log.info("Configure JDBC!");
 		
-		String queryUser = "select userid, userpw, enabled from tbl_member where userid = ?";
-		String queryDetails = "select userid, userpw, auth from tbl_member_auth where userid = ?";
+		/*
+		 * String queryUser =
+		 * "select userid, userpw, enabled from tbl_member where userid = ?"; String
+		 * queryDetails = "select userid, auth from tbl_member_auth where userid = ?";
+		 * 
+		 * auth.jdbcAuthentication().dataSource(dataSource)
+		 * .passwordEncoder(passwordEncoder()) .usersByUsernameQuery(queryUser)
+		 * .authoritiesByUsernameQuery(queryDetails);
+		 */
+		auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder());
 		
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.passwordEncoder(passwordEncoder())
-				.usersByUsernameQuery(queryUser)
-				.authoritiesByUsernameQuery(queryDetails);
 	}
 
 	@Bean //로그인 처리 Handler

@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
+<sec:authentication property="principal" var="pinfo"/>
+	<sec:authorize access="isAuthenticated()">
+		<c:if test="${pinfo.username eq board.writer}">
+		<button data-oper="modify" class="btn btn-secondary">Modify</button>
+	</c:if>
+	</sec:authorize>
+	
 <title>board</title>
 <style>
 .board_title {
@@ -35,6 +42,7 @@
 	padding-bottom: 30px;
 }
 </style>
+
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -455,8 +463,10 @@ $(document).ready(function(){
 			<div class="">
 				<div class="panel-heading" style="margin-bottom: 20px;">
 					<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-bottom:15px; padding-top:15px;"></i><span style="font-size: 15pt;">Comments</span>
+					<sec:authorize access="isAuthenticated()">
 					<button id='addReplyBtn' class="btn btn-primary btn-xs float-right" style="margin-top:15px;">
 					Add Comment</button>
+					</sec:authorize>
 				</div>
 				
 				<div class="panel-body" style="border-bottom: thin dotted;">

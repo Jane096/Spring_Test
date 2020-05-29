@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register") 
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("==========================");
 		log.info("/register called " + board);
@@ -57,6 +59,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register") //입력페이지 보여주기 용도 별도 처리x
+	@PreAuthorize("isAuthenticated()") //로그인 성공한 사용자만 해당 기능 사용가능
 	public void register() {
 		  
 	}
@@ -69,6 +72,7 @@ public class BoardController {
 		//화면쪽으로 해당 번호의 게시물을 전달하기 때문에 Model을 parameter로 지정
 	}
 	
+	@PreAuthorize("principal.username == #board.writer")
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
 		log.info("modify: " + board);
@@ -102,6 +106,7 @@ public class BoardController {
 		});
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
 	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("/remove called" + bno);

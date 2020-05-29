@@ -2,6 +2,7 @@
 		 pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <title>Register page</title>
 <%@ include file="../include/header.jsp" %>
@@ -173,6 +174,9 @@ $(document).ready(function() {
  				<div class="panel-heading"><h4>Write your content!</h4></div>
  				<div class="panel-body">
  					<form role='form' action="/board/register" method="post">
+ 					
+ 					<!--spring security: post전송이므로 csrf토큰을 사용하도록 추가-->
+ 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
  						<div class="form-group">
  							<label>Title</label>
  							<input id="title" class="form-control" name='title' >
@@ -185,7 +189,7 @@ $(document).ready(function() {
  						
  						<div class="form-group">
  							<label>Writer</label>
- 							<input id="writer" class="form-control" name='writer'>
+ 							<input id="writer" class="form-control" name='writer' value='<sec:authentication property="principal.username"/>' readonly="readonly">
  						</div>
  						<button id="submit" type="submit" class="btn btn-default">Submit</button>
  						<button type="reset" class="btn btn-default" onclick="location.href='/board/list'">Back</button>
