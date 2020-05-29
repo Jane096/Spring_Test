@@ -106,6 +106,7 @@ public class BoardController {
 		});
 	}
 	
+	//@PreAuthorize("principal.username == #writer")
 	@RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
 	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("/remove called" + bno);

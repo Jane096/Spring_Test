@@ -52,14 +52,14 @@
 				$("#textarea").focus();
 				return false;	
 				
-			}
-		});
+			}else {
 				//e.preventDefault(); 	    
 			    var operation = $(this).data("oper");	    
 			    console.log(operation);
 			    
 			    if(operation === 'remove'){
-			    	$("form").attr("action", "/board/remove");
+			    	$("form").attr("action", "/board/remove").attr("method", "post");
+			    	//return;
 			      
 			    }else if(operation === 'list'){
 			      //move to list
@@ -175,13 +175,13 @@
 				<sec:authorize access="isAuthenticated()">
 					<c:if test="${pinfo.username eq board.writer}">
 						<button id="done" type="submit" data-oper='modify'
-							class="btn btn-primary">Modify</button>
-						<button type="submit" data-oper='remove' class="btn btn-primary">Remove</button>
+							class="btn btn-sm btn-primary">Modify</button>	
+						<!-- <button type="button" data-oper='remove' class="btn btn-sm btn-primary">삭제</button>
+						 -->				
 					</c:if>
 				</sec:authorize>
-
 				<button id="golist" type="submit" data-oper='list'
-					class="btn btn-primary">List</button>
+					class="btn btn-sm btn-primary">List</button>
 			</div>
 		</div>
 

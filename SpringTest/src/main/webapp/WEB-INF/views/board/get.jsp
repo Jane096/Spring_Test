@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 	
 <title>board</title>
+<%@ include file="../include/header.jsp"%>
 <style>
 .board_title {
 	font-weight: 700;
@@ -69,7 +70,6 @@
     </div>
   </div>
 </div>
-<%@ include file="../include/header.jsp"%>
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
@@ -369,11 +369,17 @@ $(document).ready(function(){
 									value='<c:out value="${board.bno}" />'>
 							</div>
 						</div>
-
-						<span class="board_author">작성자: <c:out
-								value="${board.writer}" /></span> <span class="board_author"><fmt:formatDate
-								pattern="yyyy-MM-dd" value="${board.regdate}" /></span> <span
-							class="board_date">Latest Update: <fmt:formatDate
+						
+						<i class="far fa-user"></i>
+						<span class="board_author"  style="padding-right: 20px;">작성자: <c:out
+								value="${board.writer}" /></span> 
+								
+						<i class="far fa-edit"></i>
+								<span class="board_author" style="padding-right: 20px;"><fmt:formatDate
+								pattern="yyyy-MM-dd" value="${board.regdate}" /></span> 
+								
+								<i class="far fa-clock"></i>		
+								<span class="board_date">Latest Update: <fmt:formatDate
 								pattern="yyyy-MM-dd" value="${board.updatedate}" /></span>
 					</div>
 					<div class="board_content">
@@ -387,8 +393,8 @@ $(document).ready(function(){
 					<button data-oper="modify" class="btn btn-sm btn-primary">수정</button>					
 					</c:if> 
 				</sec:authorize>
-					<button type="submit" data-oper='remove' class="btn btn-sm btn-primary">삭제</button>
-					<button id="golist" data-oper="list" type="button"
+ 					<button type="submit" data-oper='remove' class="btn btn-sm btn-primary">삭제</button>
+ 					<button id="golist" data-oper="list" type="button"
 						class="btn btn-sm btn-primary">목록</button>
 				</div>
 			
@@ -473,7 +479,7 @@ $(document).ready(function(){
 		<div class="col-lg-12">
 			<div class="">
 				<div class="panel-heading" style="margin-bottom: 20px;">
-					<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-bottom:15px; padding-top:15px;"></i><span style="font-size: 15pt;">Comments</span>
+					<i class="fa fa-comments fa-fw" style="font-size: 15pt; padding-bottom:15px; padding-top:15px;"></i><span style="font-size: 15pt; padding-left:8px;">Comments</span>
 					<sec:authorize access="isAuthenticated()">
 					<button id='addReplyBtn' class="btn btn-primary btn-xs float-right" style="margin-top:15px;">
 					Add Comment</button>
