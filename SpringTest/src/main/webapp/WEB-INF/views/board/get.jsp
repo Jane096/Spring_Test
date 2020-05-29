@@ -3,13 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
-<sec:authentication property="principal" var="pinfo"/>
-	<sec:authorize access="isAuthenticated()">
-		<c:if test="${pinfo.username eq board.writer}">
-		<button data-oper="modify" class="btn btn-secondary">Modify</button>
-	</c:if>
-	</sec:authorize>
 	
 <title>board</title>
 <style>
@@ -239,28 +232,29 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
+	
 		var formobj = $("form");
 		
-		$('#removeOk').on("click", function(e) {
+		/* $("button[data-oper='remove']").on("click", function(e) {
 			//e.preventDefault();
 
-			/* var operation = $(this).data("oper");
+			var operation = $(this).data("oper");
 			console.log(operation);
 			
-			if (operation == "remove") { */
+			if (operation == "remove") { 
 				var chk = confirm("정말 삭제하시겠습니까?");
 				
 				if(chk) {
 					"location.href='/board/remove?bno='"+parseInt(${board.bno}); 
 					return;
-				}
 				
-			/* else if (operation == 'list') {
-				formobj.attr("action", "/board/list").attr("method", "get");
-				formobj.empty();
-			} */
+				}else if (operation == 'list') {
+					formobj.attr("action", "/board/list").attr("method", "get");
+					formobj.empty();
+			} 
 			formobj.submit();
-		});
+		}
+	}); */
 		
 		var operForm = $("#operForm");
 		
@@ -271,6 +265,21 @@ $(document).ready(function(){
 		$("button[data-oper='list']").on("click", function(e){
 			operForm.attr("action", "/board/list")
 			operForm.submit();
+		});
+		
+		$("button[data-oper='remove']").on("click", function(e) {
+			e.preventDefault();
+			
+			var operation = $(this).data("oper");
+			console.log(operation);
+			
+			if (operation == "remove") { 
+				var chk = confirm("정말 삭제하시겠습니까?");
+				
+				if(chk) {
+					operForm.attr("action", "/board/remove").submit();		
+				}
+			}
 		});
 	});
 </script>
@@ -346,7 +355,7 @@ $(document).ready(function(){
 <body>
 	<article style="padding-bottom: 40px;">
 		<div class="container" role="main">
-			<form role="form" action="/board/modify" method="post">
+			
 				<div class="bg-white rounded shadow-sm">
 					<div class="board_title">
 						<c:out value="${board.title}" />
@@ -372,14 +381,16 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<div style="margin-top: 20px; margin-bottom: 40pt;">
-					<button data-oper="modify" type="button"
-						class="btn btn-sm btn-primary">수정</button>
-					<button data-oper="remove" type="button"
-						class="btn btn-sm btn-primary" id="removeOK" onclick="location.href='/board/remove?bno='+parseInt(${board.bno})">삭제</button>
+			<sec:authentication property="principal" var="pinfo"/>
+				<sec:authorize access="isAuthenticated()">
+					<c:if test="${pinfo.username eq board.writer}">
+					<button data-oper="modify" class="btn btn-sm btn-primary">수정</button>					
+					</c:if> 
+				</sec:authorize>
+					<button type="submit" data-oper='remove' class="btn btn-sm btn-primary">삭제</button>
 					<button id="golist" data-oper="list" type="button"
-						class="btn btn-sm btn-primary" onclick="location.href=/board/list">목록</button>
+						class="btn btn-sm btn-primary">목록</button>
 				</div>
-			</form>
 			
 			<form id="operForm" action="/board/modify" method="get">
 				<input type="hidden" id="bno" name="bno" value='<c:out value="${board.bno}"/>'>

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <title>Modify page</title>
 <%@ include file="../include/header.jsp"%>
@@ -51,7 +52,8 @@
 				$("#textarea").focus();
 				return false;	
 				
-			}else {
+			}
+		});
 				//e.preventDefault(); 	    
 			    var operation = $(this).data("oper");	    
 			    console.log(operation);
@@ -65,15 +67,12 @@
 			      
 			      var pageNumTag = $("input[name='pageNum']").clone();
 			      var amountTag = $("input[name='amount']").clone();
-			      var keywordTag = $("input[name='keyword']").clone();
-			      var typeTag = $("input[name='type']").clone();      
+			          
 			      
 			      $("form").empty();
 			      
 			      $("form").append(pageNumTag);
-			      $("form").append(amountTag);
-			      $("form").append(keywordTag);
-			      $("form").append(typeTag);	  
+			      $("form").append(amountTag);	  
 			      
 			    }else if(operation === 'modify'){	        
 			        console.log("submit clicked");	        
@@ -97,6 +96,8 @@
 	});
 </script>
 <form role="form" action="/board/modify" method="post">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
 	<div class="row" style="padding-left: 20px;">
 		<div class="col-lg-12">
 			<h1 class="page-header">Board Modify</h1>
@@ -129,7 +130,8 @@
 					<label>Title</label> <input id="title" class="form-control"
 						name='title' placeholder="${board.title}"
 						onfocus="this.placeholder=''"
-						onblur="this.placeholder='${board.title}'">
+						onblur="this.placeholder='${board.title}'"
+						value='<c:out value="${board.title }"/>'>
 				</div>
 
 				<div class="form-group">
@@ -137,7 +139,8 @@
 					<textarea id="textarea" class="form-control" rows="5"
 						name='content' placeholder="${board.content}"
 						onfocus="this.placeholder=''"
-						onblur="this.placeholder='${board.content}'"></textarea>
+						onblur="this.placeholder='${board.content}'"><c:out
+							value="${board.content}" /></textarea>
 				</div>
 
 				<div class="form-group row" style="padding-left: 20px;">
@@ -162,14 +165,26 @@
 							readonly class="form-control-plaintext" />
 					</div>
 				</div>
-
-				<button id="done" class="btn btn-sm btn-primary" type="submit"
-					data-oper="modify">Modify</button>
+				<!-- <button id="done" class="btn btn-sm btn-primary" type="submit"
+					data-oper="modify">수정</button>
+				<button data-oper="remove" class="btn btn-sm btn-primary">삭제</button>
 				<button id="golist" type="submit" data-oper="list"
-					class="btn btn-sm btn-primary">List</button>
+					class="btn btn-sm btn-primary">목록</button> -->
+				<sec:authentication property="principal" var="pinfo" />
+
+				<sec:authorize access="isAuthenticated()">
+					<c:if test="${pinfo.username eq board.writer}">
+						<button id="done" type="submit" data-oper='modify'
+							class="btn btn-primary">Modify</button>
+						<button type="submit" data-oper='remove' class="btn btn-primary">Remove</button>
+					</c:if>
+				</sec:authorize>
+
+				<button id="golist" type="submit" data-oper='list'
+					class="btn btn-primary">List</button>
 			</div>
 		</div>
-		
+
 		<style>
 .uploadResult {
   width:100%;

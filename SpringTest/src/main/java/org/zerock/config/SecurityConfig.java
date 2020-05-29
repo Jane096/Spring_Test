@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.zerock.security.CustomLoginSuccessHandler;
 import org.zerock.security.CustomUserDetailsService;
 
@@ -31,6 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+			
+		//spring security 한글깨짐 문제 방지
+	        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+	        filter.setEncoding("UTF-8");
+	        filter.setForceEncoding(true);
+	        http.addFilterBefore(filter,CsrfFilter.class);
+
+	        //rest of your code   
+
 		http.authorizeRequests()
 			.antMatchers("/sample/all").permitAll()
 			.antMatchers("/sample/admin").access("hasRole('ROLE_ADMIN')")
