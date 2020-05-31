@@ -49,18 +49,27 @@
       </div>
       <div class="modal-body">
           <div class="form-group">
-            <label for="reply" class="col-form-label">Reply</label>
+            <label for="reply" class="col-form-label">Comment</label>
             <input type="text" class="form-control" id="reply" name="reply">
           </div>
           <div class="form-group">
-            <label for="replyer" class="col-form-label">Replyer</label>
+            <label for="replyer" class="col-form-label">Writer</label>
             <input type="text" class="form-control" id="replyer" name="replyer">
           </div>
-          <div class="form-group">
-            <label for="replyDate" class="col-form-label">ReplyDate</label>
-            <input type="text" class="form-control" id="replyDate" name="replyDate">
-          </div>
-      </div>
+         <!--  
+          <div class="row">
+            <label for="replyDate" class="col-form-label">Date</label>
+            <input type="text" class="form-control-plaintext" id="replyDate" name="replyDate">
+          </div> -->
+				<div class="row form-group">
+					<i class="far fa-clock" style="padding-top:10px; padding-left:15px;"></i> 
+					<label for="replyDate" class="col-form-label" style="padding-left:5px; padding-right:5px">Date: </label>
+					<div class="col-sm-0">
+						<input style="outline: none;" readonly
+							class="form-control-plaintext" name="replyDate" id="replyDate">
+					</div>
+				</div>
+			</div>
       <div class="modal-footer">
         <button type="button" id="modalModBtn" class="btn btn-secondary" data-dismiss="modal" value="Modify">Modify</button>
         <button type="button" id="modalRemoveBtn" class="btn btn-primary" value="Remove">Remove</button>
@@ -103,7 +112,7 @@ $(document).ready(function(){
 			}
 			
 			for(var i=0, len = list.length || 0; i<len; i++) {
-				str += "<li data-rno='"+list[i].rno+"' style='list-style:none;'>";
+				str += "<li data-rno='"+list[i].rno+"' style='list-style:none; cursor:hand;'>";
 				str += "<div><div class='header'  style='padding-bottom:10px;'><strong class='primary-font' style='padding-right: 200px;'>"+list[i].replyer+"</strong>";
 				str += "<small>"+replyService.displayTime(list[i].replyDate)+"</small>"
 				str += "<p>"+list[i].reply+"</p></div></li>";
