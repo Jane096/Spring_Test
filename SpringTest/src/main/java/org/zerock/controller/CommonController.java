@@ -38,6 +38,16 @@ public class CommonController {
 		log.info("custom logout");
 	}
 	
+	@GetMapping("/createAccount")
+	public void createAccount() {
+		log.info("/create Account called");
+	}
+	
+	@GetMapping("/findPassword")
+	public void findPassword() {
+		log.info("/findPassword called");
+	}
+	
 	@PostMapping("/customLogout")
 	public void logoutPost() {
 
