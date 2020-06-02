@@ -43,7 +43,7 @@ var replyService = (function(){
 			type : 'delete',
 			url : '/replies/' + rno,
 			data: JSON.stringify({rno:rno, replyer:replyer}),
-			contentType: "application/json; charset=utf-8",
+			contentType: "application/json; charset=utf-8", //빼먹지말자
 			success : function(deleteResult, status, xhr) {
 				if(callback) {
 					callback(deleteResult);
