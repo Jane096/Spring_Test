@@ -30,6 +30,8 @@ $(document).ready(function(){
 		alert("로그아웃 하시겠습니까?");
 		$("form").submit();
 	});
+	
+	
 });
 </script>
 <c:if test="${param.logout != null}">

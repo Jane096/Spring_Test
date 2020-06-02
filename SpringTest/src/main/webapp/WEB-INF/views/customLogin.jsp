@@ -27,7 +27,17 @@
 $(document).ready(function() {
 	$(".btn-success").on("click", function(e){
 		e.preventDefault();
-		$("form").submit();
+		if($("input[name='username']").val() == "") {
+			alert("아이디를 입력하세요");
+			$("input[name='username']").focus();
+			return;
+		}else if($("input[name='password']").val() == "") {
+			alert("비밀번호를 입력하세요");
+			$("input[name='password']").focus();
+			return;
+		}else {
+			$("form").submit();	
+		}
 	});
 });
 
