@@ -172,8 +172,18 @@ $(document).ready(function(){
 	var modalRemoveBtn = $("#modalRemoveBtn");
 	var modalRegisterBtn = $("#modalRegisterBtn");
 	
+	//사용자가 로그인했다면 현재 로그인한 사용자가 댓글 작성자가 되어야함
+	var replyer = null;
+	<sec:authorize access="isAuthenticated()">
+		replyer = '<sec:authentication property="principal.username"/>';
+	</sec:authorize>
+	
+	 var csrfHeaderName = "${_csrf.headerName}";
+	 var csrfTokenValue = "${_csrf.token}";
+	
 	$("#addReplyBtn").on("click", function(e){
 		$(".modal").find("input").val("");
+		$(".modal").find("input[name='replyer']").val(replyer);
 		$(".modal").find("input[name='replyDate']").closest("div").hide();
 		$(".modal").find("button[id = 'modalModBtn']").hide();
 		$(".modal").find("button[id = 'modalRemoveBtn']").hide();
@@ -181,6 +191,11 @@ $(document).ready(function(){
 		
 		modalRegisterBtn.show();
 		$("#myModal").modal("show");
+	});
+	
+	//beforesend해도 되나 기본설정으로 지정해 사용하는 것이 더 편함
+	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 	});
 	
 	modalRegisterBtn.on("click", function(e){ //새로운 댓글 추가 처리
