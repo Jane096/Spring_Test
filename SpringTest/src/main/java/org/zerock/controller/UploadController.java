@@ -190,6 +190,8 @@ public class UploadController {
 		}
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
+	
+	@PreAuthorize("isAuthenticated()") //로그인 한 사람만 사용 가능
 	@PostMapping("/deleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {

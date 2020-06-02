@@ -99,7 +99,7 @@ $(document).ready(function() {
 	      contentType: false,
 	      beforeSend: function(xhr) {
 	    	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-	      }
+	      },
 	      data: formData,type: 'POST',
 	      dataType:'json',
 	        success: function(result){
@@ -157,7 +157,7 @@ $(document).ready(function() {
 	          data: {fileName: targetFile, type:type},
 	          beforeSend: function(xhr) {
 		    	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-		      }
+		      },
 	          dataType:'text',
 	          type: 'POST',
 	            success: function(result){
