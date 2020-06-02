@@ -297,10 +297,19 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
+            <sec:authorize access="isAuthenticated()">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                <sec:authentication property="principal.username"/>님, 반갑습니다!</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
+              </sec:authorize>
+              <sec:authorize access="isAnonymous()">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인해주세요</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+              </sec:authorize>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
@@ -315,17 +324,18 @@
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
                 </a>
-                <div class="dropdown-divider"></div>
+                
                 <sec:authorize access="isAuthenticated()">
-                	<a class="dropdown-item" href="/customLogout" data-toggle="modal" data-target="#logoutModal">
+                <div class="dropdown-divider"></div>
+                	<a class="dropdown-item" href="/customLogout">
                   	<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   	Logout
                 	</a>
                 </sec:authorize>
                 
-                <div class="dropdown-divider"></div>
                 <sec:authorize access="isAnonymous()">
-                	<a class="dropdown-item" href="/customLogin" data-toggle="modal" data-target="#logoutModal">
+                <div class="dropdown-divider"></div>
+                	<a class="dropdown-item" href="/customLogin">
                   	<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   	Login
                 	</a>
@@ -337,5 +347,5 @@
 
         </nav>
         <!-- End of Topbar -->
-</body>  
-</html>
+<!-- </body>  
+</html> -->
