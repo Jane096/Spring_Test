@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +23,22 @@
   <script src="/resources/js/demo/datatables-demo.js"></script>
   
 <body>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".btn-block").on("click", function(e){
+		e.preventDefault();
+		alert("로그아웃 하시겠습니까?");
+		$("form").submit();
+	});
+});
+</script>
+<c:if test="${param.logout != null}">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			alert("로그아웃 되었습니다");
+		});
+	</script>
+</c:if>
 
 	<!-- Page Wrapper -->
   <div id="wrapper">
@@ -327,10 +345,12 @@
                 
                 <sec:authorize access="isAuthenticated()">
                 <div class="dropdown-divider"></div>
-                	<a class="dropdown-item" href="/customLogout">
-                  	<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  	Logout
-                	</a>
+                <form role="form" action="/customLogout" method='post'>              	
+                	<a class="dropdown-item btn btn-sm btn-success btn-block" href="#">
+                	<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
+                	<input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}"/>              	
+                  	
+                	</form>
                 </sec:authorize>
                 
                 <sec:authorize access="isAnonymous()">
