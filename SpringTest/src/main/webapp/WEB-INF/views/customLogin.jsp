@@ -24,7 +24,7 @@
 
 </head>
 <script type="text/javascript">
-$(document).ready(function() {
+ $(document).ready(function() {
 	$(".btn-success").on("click", function(e){
 		e.preventDefault();
 		if($("input[name='username']").val() == "") {
