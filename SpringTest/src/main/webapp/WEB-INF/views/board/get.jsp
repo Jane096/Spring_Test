@@ -187,8 +187,9 @@ $(document).ready(function(){
 		$(".modal").find("input[name='replyDate']").closest("div").hide();
 		$(".modal").find("button[id = 'modalModBtn']").hide();
 		$(".modal").find("button[id = 'modalRemoveBtn']").hide();
-		$(".modal").find("button[id = 'modalRegisterBtn']").hide();
-		
+		$(".modal").find("button[id = 'modalRegisterBtn']").hide();		
+		$(".modal").find("button[id != 'modalCloseBtn']").hide();
+		 
 		modalRegisterBtn.show();
 		$("#myModal").modal("show");
 	});
@@ -244,8 +245,25 @@ $(document).ready(function(){
 	
 	modalRemoveBtn.on("click", function(e){
 		var rno = modal.data("rno");
+		console.log("rno: " + rno);
+		console.log("replyer: " + replyer);
 		
-		replyService.remove(rno, function(result){
+		if(!replyer) {
+			alert("로그인이 필요합니다!");
+			$(".modal").modal("hide");
+			return;
+		}
+		
+		var originalReplyer = $(".modal").find("input[name='replyer']").val();
+		console.log("해당 댓글작성자: " + originalReplyer); 
+		
+		if(replyer != originalReplyer) {
+			alert("해당 댓글 작성자만 삭제가 가능합니다");
+			$(".modal").modal("hide");
+			return;
+		}
+		
+		replyService.remove(rno, originalReplyer, function(result){
 			alert(result);
 			modal.modal("hide");
 			showList(1);
