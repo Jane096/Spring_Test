@@ -43,6 +43,11 @@ public class CommonController {
 		log.info("/create Account called");
 	}
 	
+	@PostMapping("/createAccount")
+	public String join(Model model ) {
+		return "redirect:/customLogin";
+	}
+	
 	@GetMapping("/findPassword")
 	public void findPassword() {
 		log.info("/findPassword called");

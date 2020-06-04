@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -58,6 +59,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.tokenValiditySeconds(604800);
 
 	}
+	
+	@Override //spring security 에서 무시되어야 하는 부분들
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/resources/css/**", "/resources/js/**", "/resources/img/**");
+	}
+	
 	
 	@Override
 	//spring security 인증 Java 설정방법

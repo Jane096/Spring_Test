@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.MemberVO;
 import org.zerock.mapper.MemberMapper;
 import org.zerock.security.domain.CustomUser;
@@ -19,7 +21,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-
+		//String msg = "존재하지않는 회원입니다";
+		
+		//UsernameNotFoundException str = new UsernameNotFoundException(msg);
 		log.warn("Load User By UserName : " + userName);
 
 		//userName means userid
@@ -28,4 +32,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		return vo == null ? null : new CustomUser(vo);
 	} 
+	
+	@Transactional
+	public Long joinUser(MemberVO vo) {
+		BCryptPasswordEncoder pw = new BCryptPasswordEncoder();
+		vo.setUserpw(pw.encode(vo.getUserpw()));
+		
+		return null;
+	}
 }

@@ -38,6 +38,9 @@
 		}else {
 			$("form").submit();	
 		}
+		if($("form") == null) {
+			alert("존재하지 않는 회원입니다");
+		}
 	});
 });
 
