@@ -19,6 +19,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		return new Filter[] { characterEncodingFilter };
 	}
 	
+	//mvc 패턴 생성
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		
@@ -33,7 +34,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/"};
+		return new String[] {"/"}; //스프링 mvc의 기본경로
 	}
 	
 	@Override

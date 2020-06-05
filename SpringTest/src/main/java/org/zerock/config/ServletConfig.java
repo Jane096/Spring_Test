@@ -18,10 +18,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableTransactionManagement
-@EnableWebMvc
+@EnableWebMvc //mvc 구성에 필요한 빈(객체)를 자동으로 생성해주는 annotation
 @ComponentScan(basePackages = { "org.zerock.controller", "org.zerock.exception"})
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) //어노테이션을 이용하는 spring security 설정
-public class ServletConfig implements WebMvcConfigurer{
+public class ServletConfig implements WebMvcConfigurer{ //webMvcConfigurer: 생성된 빈을 커스터마이징 가능하게 해줌
 	
 	//기존 servlet-context.xml 내용 작성하기
 	@Override
