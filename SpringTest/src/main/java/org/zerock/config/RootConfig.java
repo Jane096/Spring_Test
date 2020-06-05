@@ -25,7 +25,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableTransactionManagement //aspectj-autoproxy에 대한 설정
 public class RootConfig {
 
-	@Bean 
+	@Bean //ConnectionPool
 	public DataSource dataSource() { HikariConfig hikariConfig = new HikariConfig();
 	  //hikariConfig.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 	  //hikariConfig.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
@@ -41,7 +41,7 @@ public class RootConfig {
 	  	return dataSource; 
 	}
 	  
-	@Bean 
+	@Bean //SQL session을 만들고 Connection을 생성하거나 sql문을 전달하고 리턴받는 역할을 함
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
