@@ -115,7 +115,7 @@ public class BoardController {
 		
 		if(service.remove(bno)) {
 			deleteFiles(attachList);
-			rttr.addFlashAttribute("result", "삭제되었습니다");
+			rttr.addFlashAttribute("result", "삭제되었습니다");//addflushAttribute(이름, 값) 사용하면 화면에 한번만 사용하고 다음엔 사용되지 않는 데이터를 전달함
 		}
 		return "redirect:/board/list";
 	}
