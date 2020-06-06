@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service //비즈니스 영역임을 표시 
-//@AllArgsConstructor 두개를 받아야해서 setter로 처리 
+//@AllArgsConstructor 두개를 받아야해서 setter로 처리 (autowired보단 권장하는 방식임)
 public class BoardServiceImplemented implements BoardService{
 	
 	//해당 클래스가 잘 동작하려면 BoardMapper가 필요함

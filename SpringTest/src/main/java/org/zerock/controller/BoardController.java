@@ -83,7 +83,7 @@ public class BoardController {
 		return "redirect:/board/list"; //수정 후 목록으로 이동
 	}
 	
-	private void deleteFiles(List<BoardAttachVO> attachList) {
+	private void deleteFiles(List<BoardAttachVO> attachList) { //annotation이 없음 확인해야됨
 		if(attachList == null || attachList.size() == 0) {
 			return;
 		}
