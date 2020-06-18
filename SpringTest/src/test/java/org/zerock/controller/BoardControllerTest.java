@@ -23,7 +23,7 @@ public class BoardControllerTest {
 	
 	@Setter(onMethod_ = {@Autowired})
 	private WebApplicationContext ctx;
-	private MockMvc mockMvc;
+	private MockMvc mockMvc; //가짜 mvc url과 parameter를 브라우저에서 사용하는 것처럼 만들어서 controller실행
 	
 	@Before
 	public void setup() {

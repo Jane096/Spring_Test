@@ -37,7 +37,7 @@ public class BoardController {
 	@GetMapping("/list")
 	public void list(Model model) {
 		log.info("/list called");
-		model.addAttribute("list", service.getList());
+		model.addAttribute("list", service.getList());//getList의 결과를 model에 담아 전달(addAttribute)함
 	}
 	
 	@PostMapping("/register") 
