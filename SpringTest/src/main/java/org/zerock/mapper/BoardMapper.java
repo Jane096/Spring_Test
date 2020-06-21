@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 public interface BoardMapper { //DAO 대신에 사용할 수 있음, mybatis3.0부터 제공, DAO보다 편리함을 제공함
 	
@@ -17,4 +18,5 @@ public interface BoardMapper { //DAO 대신에 사용할 수 있음, mybatis3.0�
 	public int update(BoardVO board);
 	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
 	public void deleteAll(Long bno);
+	//public void getListPage(Criteria cri);
 }
